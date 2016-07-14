@@ -24,7 +24,7 @@ import com.ttnd.reap.pojo.RemainingBadges;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan({"com.ttnd.reap.controller","com.ttnd.reap.dao.Impl","com.ttnd.reap.service.impl"})
+@ComponentScan({ "com.ttnd.reap.controller", "com.ttnd.reap.dao.Impl", "com.ttnd.reap.service.impl" })
 public class ApplicationContextConfig extends WebMvcConfigurerAdapter {
 
 	private BasicDataSource dataSource;
@@ -77,4 +77,11 @@ public class ApplicationContextConfig extends WebMvcConfigurerAdapter {
 		SessionFactory sessionFactory = sesssionBuilder.buildSessionFactory();
 		return sessionFactory;
 	}
+
+	/*@Bean
+	@Scope(proxyMode=ScopedProxyMode.TARGET_CLASS, value="session")
+	public static HttpSession getSession(HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		return session;
+	}*/
 }

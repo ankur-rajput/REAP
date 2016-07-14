@@ -6,14 +6,16 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.criterion.Projections;
+//import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
 import com.ttnd.reap.pojo.BadgesTransaction;
 import com.ttnd.reap.pojo.EmployeeDetails;
 import com.ttnd.reap.pojo.RemainingBadges;
 
+@SuppressWarnings("deprecation")
 public class BadgesTransactionMain {
+	
 	public static void main(String[] args) {
 
 		BadgesTransaction badgesTransaction = new BadgesTransaction();

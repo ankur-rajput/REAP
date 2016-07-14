@@ -38,9 +38,9 @@
 	<div class="collapse navbar-collapse" id="myNavbar">
 		<div class="myMenu">
 			<ul id="myNavbarButtons" class="nav navbar-nav" style="float: right">
-				<li><a href="#" class="navbtn" id="dashboard"><img
+				<li><a href='<c:url value="/" />' class="navbtn" id="dashboard"><img
 						id="test" src="images/ico-dashboard.png"> Dashboard</a></li>
-				<li><a href="#" class="navbtn" id="badge"><img
+				<li><a href='<c:url value="badges" />' class="navbtn" id="badge"><img
 						src="images/ico-badge.png"> Badges</a></li>
 				<li><a href="#" class="navbtn" id="idea"><img
 						src="images/ico-idea.png"> Idea</a></li>

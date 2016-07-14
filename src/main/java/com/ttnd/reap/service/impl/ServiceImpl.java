@@ -11,11 +11,15 @@ import com.ttnd.reap.service.IService;
 public class ServiceImpl implements IService{
 
 	@Autowired
-	IEmployeeDetailsDao employeeDetailsDao;
+	private IEmployeeDetailsDao employeeDetailsDao;
+	
+//	@Autowired
+//	private HttpSession httpSession;
 	
 	@Override
 	public void save(EmployeeDetails employeeDetails) {
 		employeeDetails.setEmail(employeeDetails.getEmail()+"@tothenew.com");
+		employeeDetails.setRole("User");
 		employeeDetailsDao.save(employeeDetails);
 	}
 

@@ -148,10 +148,6 @@
 									</div>
 								</div>
 							</div>
-							<div class="form-group">
-								<form:input path="Role" type="text"
-									class="form-control input-sm" placeholder="Role" />
-							</div>
 							<input type="submit" value="Register"
 								class="btn btn-info btn-block">
 

@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -31,11 +32,14 @@
 	</div>
 
 	</nav>
+
 	<div class="container">
 
 		<div class="row centered-form">
 			<div
 				class="col-xs-12 col-sm-8 col-md-4 col-sm-offset-2 col-md-offset-4">
+				<%-- <c:if test="${msg!=null}"><a>${msg}</a></c:if> --%>
+				<a>${msg}</a>
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h3 class="panel-title">
@@ -48,7 +52,8 @@
 
 							<div class="form-group">
 								<input type="text" name="email_id" id="email"
-									class="form-control input-sm" placeholder="Email Address" />
+									class="form-control input-sm"
+									placeholder="Email Address/Employee ID" />
 							</div>
 
 							<div class="form-group">
@@ -58,8 +63,7 @@
 
 							<input type="submit" value="Login" class="btn btn-info btn-block">
 						</form>
-						<br>
-						<a href="register">Register</a>
+						<br> <a href="register">Register</a>
 					</div>
 				</div>
 			</div>
