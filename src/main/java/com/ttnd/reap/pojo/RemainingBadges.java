@@ -3,13 +3,26 @@ package com.ttnd.reap.pojo;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 @Entity
 public class RemainingBadges {
 	@Id
 	@GeneratedValue
 	private int Id;
-	private int gold=3, silver=2, bronze=1;
+	private int gold = 3, silver = 2, bronze = 1;
+	@OneToOne
+	@JoinColumn(name = "employeeId")
+	private EmployeeDetails employeeDetails;
+
+	public EmployeeDetails getEmployeeDetails() {
+		return employeeDetails;
+	}
+
+	public void setEmployeeDetails(EmployeeDetails employeeDetails) {
+		this.employeeDetails = employeeDetails;
+	}
 
 	public int getId() {
 		return Id;

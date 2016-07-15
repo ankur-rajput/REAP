@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="shortcut icon" href="<c:url value="/resources/images/favicon.ico"/>" type="image/x-icon">
+<link rel="shortcut icon" href="resources/images/favicon.ico">
 <title>REAP</title>
 
 <!-- jQuery -->
@@ -24,9 +24,9 @@
 		role="navigation">
 	<div class="navbar-header" style="float: left; width: 50%">
 		<a href="#" class="logo"><img
-			src="<c:url value="/resources/images/reap-logo.png" />"
+			src="resources/images/reap-logo.png"
 			style="margin-top: 10px; width: 107px; height: 32px";></a> <img
-			class="reapfull hidden-xs" src="images/reap.png">
+			class="reapfull hidden-xs" src="resources/images/reap.png">
 	</div>
 	<div>
 		<button type="button" class="navbar-toggle" data-toggle="collapse"
@@ -39,12 +39,12 @@
 		<div class="myMenu">
 			<ul id="myNavbarButtons" class="nav navbar-nav" style="float: right">
 				<li><a href='<c:url value="/" />' class="navbtn" id="dashboard"><img
-						id="test" src="images/ico-dashboard.png"> Dashboard</a></li>
+						id="test" src="resources/images/ico-dashboard.png"> Dashboard</a></li>
 				<li><a href='<c:url value="badges" />' class="navbtn" id="badge"><img
-						src="images/ico-badge.png"> Badges</a></li>
+						src="resources/images/ico-badge.png"> Badges</a></li>
 				<li><a href="#" class="navbtn" id="idea"><img
-						src="images/ico-idea.png"> Idea</a></li>
-				<li><a href="#"><img src="images/ico-bell.png"
+						src="resources/images/ico-idea.png"> Idea</a></li>
+				<li><a href="#"><img src="resources/images/ico-bell.png"
 						style="margin-top:"></a></li>
 			</ul>
 		</div>
@@ -58,7 +58,7 @@
 				<div class="panel panel-default" style="margin-top: 30px">
 					<div class="panel-heading"
 						style="background: #ea8744; color: #ffffff">
-						<img src="images/ico-badge-white.png" /> <strong
+						<img src="resources/images/ico-badge-white.png" /> <strong
 							style="font-size: 14px">&nbsp RECOGNIZE KARMA</strong>
 					</div>
 					<div class="panel-body">
@@ -71,7 +71,7 @@
 											style="padding-left: 40px; border: 1px solid #e5e5e5;">
 										<input type="hidden" name="user" id="user" /> <span
 											style="padding: 4px 12px; border-right: 1px solid #e5e5e5; position: absolute; top: 6px;">
-											<img src="images/select-newer.png">
+											<img src="resources/images/select-newer.png">
 										</span>
 									</div>
 									<div class="col-md-6">
@@ -127,7 +127,7 @@
 							style="background: #8d9fc4; color: #ffffff">
 							<div class="row">
 								<div class="col-lg-4">
-									<img src="images/ico-wall.png" /> <strong
+									<img src="resources/images/ico-wall.png" /> <strong
 										style="font-size: 16px"> WALL OF FAME</strong>
 								</div>
 								<form action="#" method="post">
@@ -215,13 +215,13 @@
 								<div class="row">
 									<div class="col-md-2" style="padding-top: 10px">
 										<center>
-											<img src="images/my-photo" alt="image" class="img-rounded"
+											<img src="resources/images/my-photo" alt="image" class="img-rounded"
 												width="50px" height="50px">
 										</center>
 									</div>
 									<div class="col-md-10" style="padding-top: 10px">
 										<a href="#"> <strong>Ankur TTND</strong>
-										</a> has received <img src="images/silver.png" title="Silver"
+										</a> has received <img src="resources/images/silver.png" title="Silver"
 											alt="Silver"> from <a href="#"> <strong>Pratishtha
 												Sharma</strong>
 										</a> for Karma : Knowledge Sharing
@@ -235,13 +235,13 @@
 								<div class="row">
 									<div class="col-md-2" style="padding-top: 10px">
 										<center>
-											<img src="images/my-photo" alt="image" class="img-rounded"
+											<img src="resources/images/my-photo" alt="image" class="img-rounded"
 												width="50px" height="50px">
 										</center>
 									</div>
 									<div class="col-md-10" style="padding-top: 10px">
 										<a href="#"> <strong>Ankur TTND</strong>
-										</a> has received <img src="images/silver.png" title="Silver"
+										</a> has received <img src="resources/images/silver.png" title="Silver"
 											alt="Silver"> from <a href="#"> <strong>Pratishtha
 												Sharma</strong>
 										</a> for Karma : Knowledge Sharing
@@ -263,14 +263,14 @@
 				<div class="panel panel-default" style="margin-top: 30px">
 					<div class="panel-heading"
 						style="background: #8d9fc4; color: #ffffff">
-						<img src="images/ico-badge-white.png"> <strong
+						<img src="resources/images/ico-badge-white.png"> <strong
 							style="font-size: 16px"> MY BADGES</strong>
 					</div>
 					<div class="panel-body">
 						<div class="row">
 							<div class="col-lg-4" style="padding-top: 10px">
 								<center>
-									<img src="images/my-photo" alt="image" class="img-rounded"
+									<img src="resources/images/my-photo" alt="image" class="img-rounded"
 										width="50px" height="50px">
 								</center>
 							</div>
@@ -282,15 +282,15 @@
 								</div>
 								<div class="row" style="padding-top: 5px">
 									<div class="col-xs-3">
-										<img class="img-rounded img-responsive" src="images/gold.png">
+										<img class="img-rounded img-responsive" src="resources/images/gold.png">
 									</div>
 									<div class="col-xs-3">
 										<img class="img-rounded img-responsive"
-											src="images/silver.png">
+											src="resources/images/silver.png">
 									</div>
 									<div class="col-xs-3">
 										<img class="img-rounded img-responsive"
-											src="images/bronze.png">
+											src="resources/images/bronze.png">
 									</div>
 								</div>
 								<div class="row" style="padding-top: 5px">
@@ -317,7 +317,7 @@
 								<div class="row">
 									<div class="col-lg-4" style="padding-top: 10px">
 										<center>
-											<img src="images/my-photo" alt="image" class="img-rounded"
+											<img src="resources/images/my-photo" alt="image" class="img-rounded"
 												width="50px" height="50px">
 										</center>
 									</div>
@@ -330,15 +330,15 @@
 										<div class="row" style="padding-top: 5px">
 											<div class="col-xs-3">
 												<img class="img-rounded img-responsive"
-													src="images/gold.png">
+													src="resources/images/gold.png">
 											</div>
 											<div class="col-xs-3">
 												<img class="img-rounded img-responsive"
-													src="images/silver.png">
+													src="resources/images/silver.png">
 											</div>
 											<div class="col-xs-3">
 												<img class="img-rounded img-responsive"
-													src="images/bronze.png">
+													src="resources/images/bronze.png">
 											</div>
 										</div>
 										<div class="row" style="padding-top: 5px">
@@ -352,7 +352,7 @@
 								<div class="row">
 									<div class="col-lg-4" style="padding-top: 10px">
 										<center>
-											<img src="images/my-photo" alt="image" class="img-rounded"
+											<img src="resources/images/my-photo" alt="image" class="img-rounded"
 												width="50px" height="50px">
 										</center>
 									</div>
@@ -365,15 +365,15 @@
 										<div class="row" style="padding-top: 5px">
 											<div class="col-xs-3">
 												<img class="img-rounded img-responsive"
-													src="images/gold.png">
+													src="resources/images/gold.png">
 											</div>
 											<div class="col-xs-3">
 												<img class="img-rounded img-responsive"
-													src="images/silver.png">
+													src="resources/images/silver.png">
 											</div>
 											<div class="col-xs-3">
 												<img class="img-rounded img-responsive"
-													src="images/bronze.png">
+													src="resources/images/bronze.png">
 											</div>
 										</div>
 										<div class="row" style="padding-top: 5px">
@@ -390,7 +390,7 @@
 							<div class="row" style="padding-top: 7px">
 								<div class="col-lg-3" style="padding-top: 10px">
 									<center>
-										<img src="images/my-photo" alt="image" class="img-rounded"
+										<img src="resources/images/my-photo" alt="image" class="img-rounded"
 											width="50px" height="50px">
 									</center>
 								</div>
@@ -409,7 +409,7 @@
 							<div class="row" style="padding-top: 7px">
 								<div class="col-lg-3" style="padding-top: 10px">
 									<center>
-										<img src="images/my-photo" alt="image" class="img-rounded"
+										<img src="resources/images/my-photo" alt="image" class="img-rounded"
 											width="50px" height="50px">
 									</center>
 								</div>

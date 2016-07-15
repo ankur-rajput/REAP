@@ -17,7 +17,7 @@
         <property name="hibernate.connection.pool_size">1</property>
         
         <mapping class="com.ttnd.reap.pojo.EmployeeDetails"/>
-        <mapping class="com.ttnd.reap.pojo.BadgesTransaction"/>
+        <mapping class="com.ttnd.reap.pojo.BadgeTransaction"/>
         <mapping class="com.ttnd.reap.pojo.RemainingBadges"/>
         <mapping class="com.ttnd.reap.pojo.ReceivedBadges"/>
         

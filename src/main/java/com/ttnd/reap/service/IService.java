@@ -1,9 +1,20 @@
 package com.ttnd.reap.service;
 
+import com.ttnd.reap.pojo.BadgeTransaction;
 import com.ttnd.reap.pojo.EmployeeDetails;
+import com.ttnd.reap.pojo.ReceivedBadges;
+import com.ttnd.reap.pojo.RemainingBadges;
 
 public interface IService {
 	public void save(EmployeeDetails employeeDetails);
+
 	public EmployeeDetails findEmployeeById(int id, String password);
+
 	public EmployeeDetails findEmployeeByEmail(String email, String password);
+
+	public void recognizeKarma(BadgeTransaction badgeTransaction);
+
+	public ReceivedBadges getReceivedBadgesOfEmployee(EmployeeDetails employeeDetails);
+
+	public RemainingBadges getRemainingBadgesOfEmployee(EmployeeDetails employeeDetails);
 }

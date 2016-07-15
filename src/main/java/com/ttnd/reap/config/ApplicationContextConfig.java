@@ -17,7 +17,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
-import com.ttnd.reap.pojo.BadgesTransaction;
+import com.ttnd.reap.pojo.BadgeTransaction;
 import com.ttnd.reap.pojo.EmployeeDetails;
 import com.ttnd.reap.pojo.ReceivedBadges;
 import com.ttnd.reap.pojo.RemainingBadges;
@@ -71,7 +71,7 @@ public class ApplicationContextConfig extends WebMvcConfigurerAdapter {
 		LocalSessionFactoryBuilder sesssionBuilder = new LocalSessionFactoryBuilder(dataSource);
 		sesssionBuilder.addProperties(getHibernateProperties());
 		sesssionBuilder.addAnnotatedClasses(EmployeeDetails.class);
-		sesssionBuilder.addAnnotatedClass(BadgesTransaction.class);
+		sesssionBuilder.addAnnotatedClass(BadgeTransaction.class);
 		sesssionBuilder.addAnnotatedClass(ReceivedBadges.class);
 		sesssionBuilder.addAnnotatedClass(RemainingBadges.class);
 		SessionFactory sessionFactory = sesssionBuilder.buildSessionFactory();

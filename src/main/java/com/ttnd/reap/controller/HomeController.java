@@ -5,14 +5,15 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ttnd.reap.pojo.BadgeTransaction;
 import com.ttnd.reap.pojo.EmployeeDetails;
+import com.ttnd.reap.pojo.ReceivedBadges;
 import com.ttnd.reap.service.IService;
 
 @Controller
@@ -26,12 +27,12 @@ public class HomeController {
 	// private HttpSession httpSession;
 
 	@RequestMapping(value = { "/", "/login" }, method = RequestMethod.GET)
-	public String home(HttpSession httpSession) {
+	public ModelAndView home(HttpSession httpSession) {
 		EmployeeDetails employeeDetails = (EmployeeDetails) httpSession.getAttribute("employeeDetails");
 		if (employeeDetails == null) {
-			return "login";
+			return new ModelAndView("login");
 		}
-		return "reap_home";
+		return new ModelAndView("reap_home", "badgeTransaction", new BadgeTransaction());
 	}
 
 	/*
@@ -41,7 +42,7 @@ public class HomeController {
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ModelAndView login(@RequestParam("email_id") String email_id, @RequestParam("password") String password,
-			HttpSession httpSession, ModelMap model) {
+			HttpSession httpSession) {
 		EmployeeDetails employeeDetails;
 		try {
 			int id = Integer.parseInt(email_id);
@@ -51,12 +52,12 @@ public class HomeController {
 		}
 		if (employeeDetails == null) {
 			ModelAndView modelAndView = new ModelAndView("login");
-			modelAndView.addObject("msg", "flop");
-//			modelAndView.addAttribute("msg", "Invalid Credentials!");
+			modelAndView.addObject("msg", "Invalid Credentials!");
+			// System.out.println(modelAndView.getModel().get("msg"));
 			return modelAndView;
 		}
 		httpSession.setAttribute("employeeDetails", employeeDetails);
-		return new ModelAndView("reap_Home");
+		return new ModelAndView("reap_home");
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
@@ -76,8 +77,17 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/badges")
-	public String badges() {
-
-		return "myBadges";
+	public ModelAndView badges(HttpSession httpSession) {
+		EmployeeDetails employeeDetails = (EmployeeDetails) httpSession.getAttribute("employeeDetails");
+		ModelAndView modelAndView=new ModelAndView();
+		if (employeeDetails == null) {
+			modelAndView.setViewName("login");
+			modelAndView.addObject("msg", "Please login first!!!!");
+			return modelAndView;
+		}
+		modelAndView.setViewName("myBadges");
+		ReceivedBadges receivedBadges = service.getReceivedBadgesOfEmployee(employeeDetails);
+		modelAndView.addObject("receivedBadges", receivedBadges);
+		return new ModelAndView("myBadges");
 	}
 }

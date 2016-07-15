@@ -4,27 +4,17 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 
 @Entity
 public class EmployeeDetails {
-	@Id @GeneratedValue
+	@Id
+	@GeneratedValue
 	private int id;
 	@Column(unique = true, nullable = false)
 	private String email;
-	//@Column(nullable = false)
-	private String name, password, serviceLine, practice, role;
+	// @Column(nullable = false)
+	private String name, password, serviceLine, practice, role="User";
 	private byte[] photo;
-
-	@OneToOne
-	@JoinColumn(name = "RemainingBadges_Id")
-	private RemainingBadges remainingBadges;
-
-	@OneToOne
-	@JoinColumn(name = "ReceivedBadges_Id")
-	private ReceivedBadges receivedBadges;
-
 
 	public int getId() {
 		return id;
@@ -90,19 +80,4 @@ public class EmployeeDetails {
 		this.photo = photo;
 	}
 
-	public RemainingBadges getRemainingBadges() {
-		return remainingBadges;
-	}
-
-	public void setRemainingBadges(RemainingBadges remainingBadges) {
-		this.remainingBadges = remainingBadges;
-	}
-
-	public ReceivedBadges getReceivedBadges() {
-		return receivedBadges;
-	}
-
-	public void setReceivedBadges(ReceivedBadges receivedBadges) {
-		this.receivedBadges = receivedBadges;
-	}
 }

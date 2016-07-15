@@ -1,4 +1,4 @@
-package com.ttnd.reap.dao;
+/*package com.ttnd.reap.dao;
 
 import java.util.Date;
 
@@ -6,11 +6,10 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-//import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
-import com.ttnd.reap.pojo.BadgesTransaction;
-import com.ttnd.reap.pojo.EmployeeDetails;
+import com.ttnd.reap.pojo.BadgeTransaction;
+import com.ttnd.reap.pojo.ReceivedBadges;
 import com.ttnd.reap.pojo.RemainingBadges;
 
 @SuppressWarnings("deprecation")
@@ -18,13 +17,13 @@ public class BadgesTransactionMain {
 	
 	public static void main(String[] args) {
 
-		BadgesTransaction badgesTransaction = new BadgesTransaction();
+		BadgeTransaction badgesTransaction = new BadgeTransaction();
 		badgesTransaction.setBadge("gold");
 		badgesTransaction.setDate(new Date());
 		badgesTransaction.setKarma("Pat on the pack");
 		badgesTransaction.setReason("Meri marzi");
-		badgesTransaction.setSenderId(35);
-		badgesTransaction.setReceiverId(36);
+		badgesTransaction.setSender(null);
+		badgesTransaction.setReceiver(null);;
 
 		SessionFactory factory = new Configuration().configure().buildSessionFactory();
 		Session session = factory.openSession();
@@ -32,12 +31,13 @@ public class BadgesTransactionMain {
 		try {
 			session.save(badgesTransaction);
 
-			Criteria criteria = session.createCriteria(EmployeeDetails.class)
-					.add(Restrictions.eq("Id", badgesTransaction.getSenderId()))
-					.createCriteria("remainingBadges");
-			// .setProjection(Projections.property(badgesTransaction.getBadge()));
-			//System.out.println(((EmployeeDetails)criteria.uniqueResult()).getName());
-			RemainingBadges remainingBadges = (RemainingBadges) criteria.uniqueResult();
+			Criteria criteria1 = session.createCriteria(RemainingBadges.class)
+					.add(Restrictions.eq("employeeId", badgesTransaction.getSenderId()));
+			RemainingBadges remainingBadges = (RemainingBadges) criteria1.uniqueResult();
+			
+			Criteria criteria2 = session.createCriteria(RemainingBadges.class)
+					.add(Restrictions.eq("employeeId", badgesTransaction.getReceiverId()));
+			ReceivedBadges receivedBadges = (ReceivedBadges) criteria2.uniqueResult();
 
 			if(badgesTransaction.getBadge().equals("gold")){
 				int val=remainingBadges.getGold();
@@ -45,6 +45,7 @@ public class BadgesTransactionMain {
 					throw new Exception();
 				val--;
 				remainingBadges.setGold(val);
+				receivedBadges.setGold(receivedBadges.getGold()+1);
 			}
 			else if(badgesTransaction.getBadge().equals("silver")){
 				int val=remainingBadges.getSilver();
@@ -52,6 +53,7 @@ public class BadgesTransactionMain {
 					throw new Exception();
 				val--;
 				remainingBadges.setSilver(val);
+				receivedBadges.setSilver(receivedBadges.getSilver()+1);
 			}
 			else{
 				int val=remainingBadges.getBronze();
@@ -59,6 +61,7 @@ public class BadgesTransactionMain {
 					throw new Exception();
 				val--;
 				remainingBadges.setBronze(val);
+				receivedBadges.setBronze(receivedBadges.getBronze()+1);
 			}
 			session.update(remainingBadges);
 			
@@ -67,6 +70,8 @@ public class BadgesTransactionMain {
 			e.printStackTrace();
 			session.getTransaction().rollback();
 		}
+		
 		session.close();
 	}
 }
+*/

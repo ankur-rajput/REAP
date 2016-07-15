@@ -8,13 +8,13 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.ttnd.reap.dao.IEmployeeDetailsDao;
-import com.ttnd.reap.dao.IReceivedBadgesDao;
+import com.ttnd.reap.dao.IRemainingBadgesDao;
 import com.ttnd.reap.pojo.EmployeeDetails;
+import com.ttnd.reap.pojo.RemainingBadges;
 
 @SuppressWarnings("deprecation")
 @Repository
-public class EmployeeDetailsDaoImpl implements IEmployeeDetailsDao {
+public class RemainingBadgesDaoImpl implements IRemainingBadgesDao {
 
 	@Autowired
 	private SessionFactory sessionFactory;
@@ -24,7 +24,9 @@ public class EmployeeDetailsDaoImpl implements IEmployeeDetailsDao {
 		Session session = sessionFactory.openSession();
 		Transaction transaction = session.beginTransaction();
 		try {
-			session.save(employeeDetails);
+			RemainingBadges remainingBadges = new RemainingBadges();
+			remainingBadges.setEmployeeDetails(employeeDetails);
+			session.save(remainingBadges);
 			transaction.commit();
 		} catch (Exception e) {
 			transaction.rollback();
@@ -34,19 +36,11 @@ public class EmployeeDetailsDaoImpl implements IEmployeeDetailsDao {
 	}
 
 	@Override
-	public EmployeeDetails findEmployeeById(int id, String password) {
+	public RemainingBadges getRemainingBadgesOfEmployee(EmployeeDetails employeeDetails) {
 		Session session = sessionFactory.openSession();
-		Criteria criteria = session.createCriteria(EmployeeDetails.class).add(Restrictions.eq("id", id))
-				.add(Restrictions.eq("password", password));
-		return (EmployeeDetails) criteria.uniqueResult();
-	}
-
-	@Override
-	public EmployeeDetails findEmployeeByEmail(String email, String password) {
-		Session session = sessionFactory.openSession();
-		Criteria criteria = session.createCriteria(EmployeeDetails.class).add(Restrictions.eq("email", email))
-				.add(Restrictions.eq("password", password));
-		return (EmployeeDetails) criteria.uniqueResult();
+		Criteria criteria = session.createCriteria(RemainingBadges.class)
+				.add(Restrictions.eq("employeeDetails", employeeDetails));
+		return (RemainingBadges)criteria.uniqueResult();
 	}
 
 }
