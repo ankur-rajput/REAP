@@ -27,25 +27,44 @@ public class HomeController {
 	// @Autowired
 	// private HttpSession httpSession;
 
-	@RequestMapping(value = { "/", "/login" }, method = RequestMethod.GET)
-	public ModelAndView home(HttpSession httpSession) {
+	@RequestMapping(value = { "/" }, method = RequestMethod.GET)
+	public ModelAndView home1(HttpSession httpSession) {
 		EmployeeDetails employeeDetails = (EmployeeDetails) httpSession.getAttribute("employeeDetails");
 		ModelAndView modelAndView = new ModelAndView();
 		if (employeeDetails == null) {
 			modelAndView.setViewName("login");
 			return modelAndView;
 		}
-		modelAndView.addObject("badgeTransaction", new BadgeTransaction());
-		modelAndView.addObject("receivedBadges", service.getReceivedBadgesOfEmployee(employeeDetails));
-		modelAndView.addObject("remainingBadges", service.getRemainingBadgesOfEmployee(employeeDetails));
-		modelAndView.setViewName("redirect:reap_home");
+		modelAndView.setViewName("redirect:home");
 		return modelAndView;
 	}
 
-	/*
-	 * @RequestMapping(value = "/login", method = RequestMethod.GET) public
-	 * String login(HttpSession session) { return "login"; }
-	 */
+	@RequestMapping(value = "/home", method = RequestMethod.GET)
+	public ModelAndView home2(HttpSession httpSession){
+		EmployeeDetails employeeDetails = (EmployeeDetails) httpSession.getAttribute("employeeDetails");
+		ModelAndView modelAndView = new ModelAndView();
+		if (employeeDetails == null) {
+			modelAndView.setViewName("redirect:login");
+			return modelAndView;
+		}
+		modelAndView.addObject("badgeTransaction", new BadgeTransaction());
+		modelAndView.addObject("receivedBadges", service.getReceivedBadgesOfEmployee(employeeDetails));
+		modelAndView.addObject("remainingBadges", service.getRemainingBadgesOfEmployee(employeeDetails));
+		modelAndView.setViewName("home");
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public ModelAndView login(HttpSession httpSession) {
+		EmployeeDetails employeeDetails = (EmployeeDetails) httpSession.getAttribute("employeeDetails");
+		ModelAndView modelAndView = new ModelAndView();
+		if (employeeDetails == null) {
+			modelAndView.setViewName("login");
+			return modelAndView;
+		}
+		modelAndView.setViewName("redirect:home");
+		return modelAndView;
+	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ModelAndView login(@RequestParam("email_id") String email_id, @RequestParam("password") String password,
@@ -67,7 +86,7 @@ public class HomeController {
 		modelAndView.addObject("badgeTransaction", new BadgeTransaction());
 		modelAndView.addObject("receivedBadges", service.getReceivedBadgesOfEmployee(employeeDetails));
 		modelAndView.addObject("remainingBadges", service.getRemainingBadgesOfEmployee(employeeDetails));
-		modelAndView.setViewName("reap_home");
+		modelAndView.setViewName("redirect:home");
 		return modelAndView;
 	}
 
@@ -83,7 +102,7 @@ public class HomeController {
 		modelAndView.addObject("badgeTransaction", new BadgeTransaction());
 		modelAndView.addObject("receivedBadges", service.getReceivedBadgesOfEmployee(employeeDetails));
 		modelAndView.addObject("remainingBadges", service.getRemainingBadgesOfEmployee(employeeDetails));
-		modelAndView.setViewName("reap_home");
+		modelAndView.setViewName("redirect:home");
 		return modelAndView;
 	}
 
@@ -97,7 +116,7 @@ public class HomeController {
 			modelAndView.addObject("badgeTransaction", new BadgeTransaction());
 			modelAndView.addObject("receivedBadges", service.getReceivedBadgesOfEmployee(employeeDetails));
 			modelAndView.addObject("remainingBadges", service.getRemainingBadgesOfEmployee(employeeDetails));
-			modelAndView.setViewName("reap_home");
+			modelAndView.setViewName("redirect:home");
 			return modelAndView;
 		} else {
 			if (success == -1)
