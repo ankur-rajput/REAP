@@ -11,7 +11,8 @@ public class ReceivedBadges {
 	@Id
 	@GeneratedValue
 	private int id;
-	private int gold=1, silver=0, bronze=0;
+	private int gold=0, silver=0, bronze=0;
+	private int points;
 	@OneToOne
 	@JoinColumn(name = "employeeId")
 	private EmployeeDetails employeeDetails;
@@ -54,6 +55,14 @@ public class ReceivedBadges {
 
 	public void setBronze(int bronze) {
 		this.bronze = bronze;
+	}
+
+	public int getPoints() {
+		return points;
+	}
+
+	public void setPoints(int points) {
+		this.points = points;
 	}
 
 }

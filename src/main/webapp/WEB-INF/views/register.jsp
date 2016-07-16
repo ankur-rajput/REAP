@@ -2,13 +2,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ page isELIgnored="false"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <title>Registration</title>
-<script src="<c:url value="/resources/js/registerscripts.js" />"></script>
 <link rel="stylesheet" type="text/css"
-	href="<c:url value="/resources/css/registerStyle.css" />">
+	href="<c:url value="/resources/css/reap.css" />">
 
 <!-- jQuery -->
 <script src="<c:url value="/resources/js/jquery.min.js" />"></script>
@@ -35,6 +35,7 @@
 		<div class="row centered-form">
 			<div
 				class="col-xs-12 col-sm-8 col-md-4 col-sm-offset-2 col-md-offset-4">
+				<c:if test="${msg!=null}">${msg}</c:if>
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h3 class="panel-title">
@@ -45,7 +46,7 @@
 						<form:form method="POST" action="register"
 							modelAttribute="employeeDetails">
 							<div class="form-group">
-								<form:input path="Name" type="text" id="name"
+								<form:input path="name" type="text" id="name"
 									class="form-control input-sm" placeholder="Name" />
 							</div>
 
@@ -53,8 +54,8 @@
 								<div class="form-group">
 									<div class="col-xs-7 col-sm-7 col-md-7">
 										<div class="form-group">
-											<form:input path="Email" type="text" id="email"
-												class="form-control input-sm" placeholder="Email Address" />
+											<form:input path="user_name" type="text" id="email"
+												class="form-control input-sm" placeholder="User Name" />
 										</div>
 									</div>
 									<div class="col-xs-5 col-sm-5 col-md-5">
@@ -67,7 +68,7 @@
 							<div class="row">
 								<div class="col-xs-6 col-sm-6 col-md-6">
 									<div class="form-group">
-										<form:input path="Password" type="password" name="password"
+										<form:input path="password" type="password" name="password"
 											id="password" class="form-control input-sm"
 											placeholder="Password" />
 									</div>
@@ -84,7 +85,7 @@
 								<div class="col-xs-6 col-sm-6 col-md-6">
 									<div class="form-group">
 
-										<form:select path="ServiceLine" class="form-control"
+										<form:select path="serviceLine" class="form-control"
 											id="serviceLine">
 											<option>Service Lines</option>
 											<option>Analytics</option>
@@ -104,7 +105,7 @@
 								<div class="col-xs-6 col-sm-6 col-md-6">
 									<div class="form-group">
 
-										<form:select path="Practice" class="form-control"
+										<form:select path="practice" class="form-control"
 											id="serviceLine">
 											<option>Practice</option>
 											<option>Admin</option>
@@ -152,6 +153,11 @@
 								class="btn btn-info btn-block">
 
 						</form:form>
+						<br>
+						<div>
+							Already a member! <a href="login">Login</a> here
+						</div>
+
 					</div>
 				</div>
 			</div>

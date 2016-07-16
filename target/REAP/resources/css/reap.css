@@ -1,0 +1,252 @@
+.myNavbarClass {
+	height: 76px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.icon-bar {
+	background-color: black
+}
+
+.logo {
+	float: left;
+	height: 50px;
+	width: 180px;
+	padding-left: 15px;
+	text-align: center;
+}
+
+.container-fluid {
+	padding: 0;
+}
+
+.myNavbarClass {
+	height: 76px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.icon-bar {
+	background-color: black
+}
+
+.logo {
+	float: left;
+	height: 50px;
+	width: 180px;
+	padding-left: 15px;
+	text-align: center;
+}
+
+.reapfull {
+	margin-top: 7px;
+	padding-top: 5px;
+	width: 424.38px;
+	height: 39.3px;
+}
+
+.myMenu {
+	width: 49%;
+	padding: 0 20;
+	float: right;
+}
+
+.navbar-nav {
+	padding-top: 7px;
+}
+
+.navbtn {
+	font-size: 16px;
+	color: black;
+	border-radius: 5px;
+}
+
+.navbtn:hover {
+	color: white;
+	img src: url("images/ico-dashboard.png");
+	background: #505b72 !important;
+}
+
+.badge-content-left img {
+	float: left;
+	height: 48px;
+	width: 48px;
+}
+
+.pointbar {div { display:block;
+	
+}
+
+.pannelouter {
+	box-sizing: border-box;
+}
+
+.tab-content {
+	position: relative;
+	z-index: 2;
+}
+
+.tab-pane {
+	display: none;
+}
+
+.active {
+	display: block;
+}
+
+.head-bar img {
+	float: left;
+	margin-right: 10px;
+	margin-top: 4px;
+	margin-bottom: 5px;
+}
+
+.reapfull {
+	margin-top: 7px;
+	padding-top: 5px;
+	width: 424.38px;
+	height: 39.3px;
+}
+
+.myMenu {
+	width: 49%;
+	padding: 0 20;
+	float: right;
+}
+
+.navbar-nav {
+	padding-top: 7px;
+}
+
+.navbtn {
+	font-size: 16px;
+	color: black;
+	border-radius: 5px;
+}
+
+.navbtn:hover {
+	color: white;
+	background: #505b72 !important;
+}
+
+.box-content {
+	float: left;
+	width: 100%;
+	margin-top: 30px;
+}
+
+.content {
+	min-height: inherit;
+}
+
+.badge-content {
+	margin: 16px 0px 0px 0px;
+	float: left;
+	width: 100%;
+}
+
+.custom-availablePoints .h1points {
+	position: absolute;
+	top: 0;
+	right: 0;
+	left: 0;
+	bottom: 0;
+	margin: 0 auto;
+	vertical-align: middle;
+	display: table-cell;
+	text-align: center;
+}
+
+.points {
+	position: relative;
+	right: 0;
+	top: 0;
+}
+
+.points img {
+	margin-left: -30px;
+}
+
+@media ( max-width : 1200px) .no-padding {
+	padding
+	:
+	 
+	0
+	!
+	important
+	;
+	
+    
+	width
+	:
+	 
+	100%;
+}
+
+img {
+	vertical-align: middle;
+}
+
+body {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	line-height: 1.42857143;
+	color: #333;
+	background-color: #fff;
+}
+
+@media ( max-width : 1200px) .head-bar {
+	width
+	:
+	 
+	100%;
+	float
+	:
+	 
+	left
+	;
+	
+    
+	padding
+	:
+	 
+	4
+	px
+	 
+	20
+	px
+	;
+	
+    
+	border-radius
+	:
+	 
+	5
+	px
+	 
+	5
+	px
+	 
+	0
+	0;
+	height
+	:
+	 
+	auto
+	;
+	
+
+}
+
+body {
+	background-color: #525252;
+}
+
+.centered-form {
+	margin-top: 60px;
+}
+
+.centered-form .panel {
+	background: rgba(255, 255, 255, 0.8);
+	box-shadow: rgba(0, 0, 0, 0.3) 20px 20px 20px;
+}

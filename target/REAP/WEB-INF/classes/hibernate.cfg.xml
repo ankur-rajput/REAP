@@ -16,10 +16,10 @@
         
         <property name="hibernate.connection.pool_size">1</property>
         
-        <mapping class="models.EmployeeDetails"/>
-        <mapping class="models.BadgesTransaction"/>
-        <mapping class="models.RemainingBadges"/>
-        <mapping class="models.ReceivedBadges"/>
+        <mapping class="com.ttnd.reap.pojo.EmployeeDetails"/>
+        <mapping class="com.ttnd.reap.pojo.BadgeTransaction"/>
+        <mapping class="com.ttnd.reap.pojo.RemainingBadges"/>
+        <mapping class="com.ttnd.reap.pojo.ReceivedBadges"/>
         
     </session-factory>
 </hibernate-configuration>

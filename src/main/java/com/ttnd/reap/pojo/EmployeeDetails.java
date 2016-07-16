@@ -12,8 +12,17 @@ public class EmployeeDetails {
 	private int id;
 	@Column(unique = true, nullable = false)
 	private String email;
-	// @Column(nullable = false)
-	private String name, password, serviceLine, practice, role="User";
+	@Column(nullable = false)
+	private String name, user_name, password, serviceLine, practice, role = "User";
+
+	public String getUser_name() {
+		return user_name;
+	}
+
+	public void setUser_name(String user_name) {
+		this.user_name = user_name;
+	}
+
 	private byte[] photo;
 
 	public int getId() {

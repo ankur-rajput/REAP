@@ -6,7 +6,7 @@ import com.ttnd.reap.pojo.ReceivedBadges;
 import com.ttnd.reap.pojo.RemainingBadges;
 
 public interface IService {
-	public void save(EmployeeDetails employeeDetails);
+	public int save(EmployeeDetails employeeDetails);
 
 	public EmployeeDetails findEmployeeById(int id, String password);
 

@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ page isELIgnored="false"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -15,16 +16,16 @@
 <link rel="stylesheet"
 	href="<c:url value="/resources/css/bootstrap.min.css" />">
 <!-- Latest compiled and minified JavaScript -->
-<script
-	src="<c:url value="/resources/js/bootstrap.min.js" />"></script>
+<script src="<c:url value="/resources/js/bootstrap.min.js" />"></script>
+<link rel="stylesheet" type="text/css"
+	href="<c:url value="/resources/css/reap.css" />">
 
 </head>
 <body>
 	<nav class="navbar navbar-static-top myNavbarClass" style="margin: 0;"
 		role="navigation">
 	<div class="navbar-header" style="float: left; width: 50%">
-		<a href="#" class="logo"><img
-			src="resources/images/reap-logo.png"
+		<a href="#" class="logo"><img src="resources/images/reap-logo.png"
 			style="margin-top: 10px; width: 107px; height: 32px";></a> <img
 			class="reapfull hidden-xs" src="resources/images/reap.png">
 	</div>
@@ -39,9 +40,11 @@
 		<div class="myMenu">
 			<ul id="myNavbarButtons" class="nav navbar-nav" style="float: right">
 				<li><a href='<c:url value="/" />' class="navbtn" id="dashboard"><img
-						id="test" src="resources/images/ico-dashboard.png"> Dashboard</a></li>
-				<li><a href='<c:url value="badges" />' class="navbtn" id="badge"><img
-						src="resources/images/ico-badge.png"> Badges</a></li>
+						id="test" src="resources/images/ico-dashboard.png">
+						Dashboard</a></li>
+				<li><a href='<c:url value="badges" />' class="navbtn"
+					id="badge"><img src="resources/images/ico-badge.png">
+						Badges</a></li>
 				<li><a href="#" class="navbtn" id="idea"><img
 						src="resources/images/ico-idea.png"> Idea</a></li>
 				<li><a href="#"><img src="resources/images/ico-bell.png"
@@ -62,39 +65,44 @@
 							style="font-size: 14px">&nbsp RECOGNIZE KARMA</strong>
 					</div>
 					<div class="panel-body">
-						<form action="#" method="post" class="form-group">
+						<form:form action="#" method="post" class="form-group"
+							modelAttribute="badgeTransaction">
 							<div class="row">
 								<div class="col-md-12">
 									<div class="col-md-6">
-										<input type="text" class="form-control"
+										<form:input path="receiver" type="text" class="form-control"
 											placeholder="Select a Newer" required="required"
-											style="padding-left: 40px; border: 1px solid #e5e5e5;">
+											style="padding-left: 40px; border: 1px solid #e5e5e5;" />
 										<input type="hidden" name="user" id="user" /> <span
 											style="padding: 4px 12px; border-right: 1px solid #e5e5e5; position: absolute; top: 6px;">
 											<img src="resources/images/select-newer.png">
 										</span>
 									</div>
 									<div class="col-md-6">
-										<div class="col-md-5 dropdown"
-											style="border: 1px solid #e5e5e5; border-radius: 5px; padding: 5px 0px; text-align: center;">
-											<a class="dropdown-toggle" style="color: black;"
-												data-toggle="dropdown">Select a Badge<strong
-												class="caret"></strong></a>
-											<ul class="dropdown-menu">
-												<li><a class="dropdown-item" href="#">Gold</a></li>
-												<li><a class="dropdown-item" href="#">Silver</a></li>
-											</ul>
+										<div class="col-md-5 dropdown">
+											<span> <form:select path="badge" class="form-control"
+													name="badgeType" id="badgeType">
+													<option>Select a Badge</option>
+													<option value="gold">Gold &nbsp;&nbsp;&nbsp;
+														(${remainingBadges.gold})</option>
+													<option value="silver">Silver &nbsp;&nbsp;&nbsp;
+														(${remainingBadges.silver})</option>
+													<option value="bronze">Bronze &nbsp;&nbsp;&nbsp;
+														(${remainingBadges.bronze})</option>
+												</form:select>
+											</span>
 										</div>
 										<div class="col-md-7">
-											<span> <select class="form-control" required
-												name="karma" id="karma">
+											<span> <form:select path="karma" class="form-control"
+													name="karma" id="karma">
 													<option>Select a Karma</option>
-													<option value="6">Extra Miler</option>
-													<option value="3">Knowledge Sharing</option>
-													<option value="1">Mentorship</option>
-													<option value="5">Pat on the back</option>
-													<option value="7">Customer Delight</option>
-											</select>
+													<option value="Extra Miler">Extra Miler</option>
+													<option value="Knowledge Sharing">Knowledge
+														Sharing</option>
+													<option value="Mentorship">Mentorship</option>
+													<option value="Pat on the back">Pat on the back</option>
+													<option value="Customer Delight">Customer Delight</option>
+												</form:select>
 											</span>
 										</div>
 									</div>
@@ -105,7 +113,8 @@
 								<div class="col-md-12">
 									<div class="form-group">
 										<label for="name">Reason :</label>
-										<textarea class="form-control" rows="7" resize="none"></textarea>
+										<form:textarea path="reason" class="form-control" rows="7"
+											resize="none"></form:textarea>
 									</div>
 								</div>
 							</div>
@@ -116,7 +125,7 @@
 										style="background: #505B72; color: white" />
 								</div>
 							</div>
-						</form>
+						</form:form>
 					</div>
 				</div>
 
@@ -215,14 +224,14 @@
 								<div class="row">
 									<div class="col-md-2" style="padding-top: 10px">
 										<center>
-											<img src="resources/images/my-photo" alt="image" class="img-rounded"
-												width="50px" height="50px">
+											<img src="resources/images/my-photo" alt="image"
+												class="img-rounded" width="50px" height="50px">
 										</center>
 									</div>
 									<div class="col-md-10" style="padding-top: 10px">
 										<a href="#"> <strong>Ankur TTND</strong>
-										</a> has received <img src="resources/images/silver.png" title="Silver"
-											alt="Silver"> from <a href="#"> <strong>Pratishtha
+										</a> has received <img src="resources/images/silver.png"
+											title="Silver" alt="Silver"> from <a href="#"> <strong>Pratishtha
 												Sharma</strong>
 										</a> for Karma : Knowledge Sharing
 										<div>
@@ -235,14 +244,14 @@
 								<div class="row">
 									<div class="col-md-2" style="padding-top: 10px">
 										<center>
-											<img src="resources/images/my-photo" alt="image" class="img-rounded"
-												width="50px" height="50px">
+											<img src="resources/images/my-photo" alt="image"
+												class="img-rounded" width="50px" height="50px">
 										</center>
 									</div>
 									<div class="col-md-10" style="padding-top: 10px">
 										<a href="#"> <strong>Ankur TTND</strong>
-										</a> has received <img src="resources/images/silver.png" title="Silver"
-											alt="Silver"> from <a href="#"> <strong>Pratishtha
+										</a> has received <img src="resources/images/silver.png"
+											title="Silver" alt="Silver"> from <a href="#"> <strong>Pratishtha
 												Sharma</strong>
 										</a> for Karma : Knowledge Sharing
 										<div>
@@ -270,19 +279,20 @@
 						<div class="row">
 							<div class="col-lg-4" style="padding-top: 10px">
 								<center>
-									<img src="resources/images/my-photo" alt="image" class="img-rounded"
-										width="50px" height="50px">
+									<img src="resources/images/my-photo" alt="image"
+										class="img-rounded" width="50px" height="50px">
 								</center>
 							</div>
 							<div class="col-lg-8" style="padding-top: 10px">
 								<div class="row">
-									<a href="#"> <strong style="font-size: 15px">Ankur
-											TTND</strong>
+									<a href="#"> <strong style="font-size: 15px"><a
+											href="badge/index/${employeeDetails.id}">${employeeDetails.name}</a></strong>
 									</a>
 								</div>
 								<div class="row" style="padding-top: 5px">
 									<div class="col-xs-3">
-										<img class="img-rounded img-responsive" src="resources/images/gold.png">
+										<img class="img-rounded img-responsive"
+											src="resources/images/gold.png">
 									</div>
 									<div class="col-xs-3">
 										<img class="img-rounded img-responsive"
@@ -294,9 +304,9 @@
 									</div>
 								</div>
 								<div class="row" style="padding-top: 5px">
-									<div class="col-xs-3">0</div>
-									<div class="col-xs-3">1</div>
-									<div class="col-xs-3">0</div>
+									<div class="col-xs-3">${receivedBadges.gold}</div>
+									<div class="col-xs-3">${receivedBadges.silver}</div>
+									<div class="col-xs-3">${receivedBadges.bronze}</div>
 								</div>
 							</div>
 						</div>
@@ -317,8 +327,8 @@
 								<div class="row">
 									<div class="col-lg-4" style="padding-top: 10px">
 										<center>
-											<img src="resources/images/my-photo" alt="image" class="img-rounded"
-												width="50px" height="50px">
+											<img src="resources/images/my-photo" alt="image"
+												class="img-rounded" width="50px" height="50px">
 										</center>
 									</div>
 									<div class="col-lg-8" style="padding-top: 10px">
@@ -352,8 +362,8 @@
 								<div class="row">
 									<div class="col-lg-4" style="padding-top: 10px">
 										<center>
-											<img src="resources/images/my-photo" alt="image" class="img-rounded"
-												width="50px" height="50px">
+											<img src="resources/images/my-photo" alt="image"
+												class="img-rounded" width="50px" height="50px">
 										</center>
 									</div>
 									<div class="col-lg-8" style="padding-top: 10px">
@@ -390,8 +400,8 @@
 							<div class="row" style="padding-top: 7px">
 								<div class="col-lg-3" style="padding-top: 10px">
 									<center>
-										<img src="resources/images/my-photo" alt="image" class="img-rounded"
-											width="50px" height="50px">
+										<img src="resources/images/my-photo" alt="image"
+											class="img-rounded" width="50px" height="50px">
 									</center>
 								</div>
 								<div class="col-lg-9" style="padding-top: 10px">
@@ -409,8 +419,8 @@
 							<div class="row" style="padding-top: 7px">
 								<div class="col-lg-3" style="padding-top: 10px">
 									<center>
-										<img src="resources/images/my-photo" alt="image" class="img-rounded"
-											width="50px" height="50px">
+										<img src="resources/images/my-photo" alt="image"
+											class="img-rounded" width="50px" height="50px">
 									</center>
 								</div>
 								<div class="col-lg-9" style="padding-top: 10px">
@@ -428,7 +438,7 @@
 							<hr />
 						</div>
 					</div>
-					<!-- tab-content ende -->
+					<!-- tab-content ended -->
 				</div>
 			</div>
 		</div>

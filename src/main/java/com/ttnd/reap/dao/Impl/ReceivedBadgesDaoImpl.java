@@ -36,11 +36,12 @@ public class ReceivedBadgesDaoImpl implements IReceivedBadgesDao {
 			receivedBadges.setEmployeeDetails(employeeDetails);
 			session.save(receivedBadges);
 			transaction.commit();
+			session.close();
 		} catch (Exception e) {
 			transaction.rollback();
 			e.printStackTrace();
+			session.close();
 		}
-		session.close();
 	}
 
 }

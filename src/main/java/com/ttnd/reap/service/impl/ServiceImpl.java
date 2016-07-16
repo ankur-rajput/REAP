@@ -28,12 +28,15 @@ public class ServiceImpl implements IService {
 	// private HttpSession httpSession;
 
 	@Override
-	public void save(EmployeeDetails employeeDetails) {
-		employeeDetails.setEmail(employeeDetails.getEmail() + "@tothenew.com");
-		employeeDetails.setRole("User");
-		employeeDetailsDao.save(employeeDetails);
-		receivedBadgesDao.save(employeeDetails);
-		remainingBadgesDao.save(employeeDetails);
+	public int save(EmployeeDetails employeeDetails) {
+		employeeDetails.setEmail(employeeDetails.getUser_name() + "@tothenew.com");
+		//employeeDetails.setRole("User");
+		int success=employeeDetailsDao.save(employeeDetails);
+		if(success==1){
+			receivedBadgesDao.save(employeeDetails);
+			remainingBadgesDao.save(employeeDetails);			
+		}
+		return success;
 	}
 
 	@Override
