@@ -57,10 +57,12 @@ public class BadgeTransactionServiceImpl implements IBadgeTransactionService {
 			session.close();
 			return 1;
 		} catch (ZeroBadgesException e) {
+			e.printStackTrace();
 			return -1;
 		} catch (Exception e) {
 			transaction.rollback();
 			session.close();
+			e.printStackTrace();
 			return 0;
 		}
 	}

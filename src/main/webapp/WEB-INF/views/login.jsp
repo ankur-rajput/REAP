@@ -63,7 +63,10 @@
 
 							<input type="submit" value="Login" class="btn btn-info btn-block">
 						</form>
-						<br> <a href="register">Register</a>
+						<br>
+						<div>
+							Not a member yet! <a href="register">Register</a> here.
+						</div>
 					</div>
 				</div>
 			</div>
