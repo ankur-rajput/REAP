@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import com.ttnd.reap.dao.IEmployeeDetailsDao;
 import com.ttnd.reap.dao.IReceivedBadgesDao;
 import com.ttnd.reap.dao.IRemainingBadgesDao;
-import com.ttnd.reap.pojo.BadgeTransaction;
 import com.ttnd.reap.pojo.EmployeeDetails;
 import com.ttnd.reap.pojo.ReceivedBadges;
 import com.ttnd.reap.pojo.RemainingBadges;
@@ -24,17 +23,14 @@ public class ServiceImpl implements IService {
 	@Autowired
 	private IRemainingBadgesDao remainingBadgesDao;
 
-	// @Autowired
-	// private HttpSession httpSession;
-
 	@Override
 	public int save(EmployeeDetails employeeDetails) {
 		employeeDetails.setEmail(employeeDetails.getUser_name() + "@tothenew.com");
-		//employeeDetails.setRole("User");
-		int success=employeeDetailsDao.save(employeeDetails);
-		if(success==1){
+		// employeeDetails.setRole("User");
+		int success = employeeDetailsDao.save(employeeDetails);
+		if (success == 1) {
 			receivedBadgesDao.save(employeeDetails);
-			remainingBadgesDao.save(employeeDetails);			
+			remainingBadgesDao.save(employeeDetails);
 		}
 		return success;
 	}
@@ -50,11 +46,6 @@ public class ServiceImpl implements IService {
 			email += "@tothenew.com";
 
 		return employeeDetailsDao.findEmployeeByEmail(email, password);
-	}
-
-	@Override
-	public void recognizeKarma(BadgeTransaction badgeTransaction) {
-
 	}
 
 	@Override

@@ -49,7 +49,90 @@
 						src="resources/images/ico-idea.png"> Idea</a></li>
 				<li><a href="#"><img src="resources/images/ico-bell.png"
 						style="margin-top:"></a></li>
+				<li style="float: right padding-top:2px;"><a href="#"><img
+						src="resources/images/sanam.jpg"
+						style="margin-top: 2px; width: 40px; height: 50px"
+						; data-toggle="modal" data-target="#myModal"></a></li>
 			</ul>
+			<!-- Modal -->
+			<div id="myModal" class="modal fade" role="dialog"
+				data-backdrop="false">
+				<div class="modal-dialog">
+
+					<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 class="modal-title">Your Profile</h4>
+						</div>
+						<div class="modal-body">
+							<div class="row">
+								<div class="col-md-3 col-sm-3 col-lg-3E">
+									<div class="col-md-12 col-sm-12 col-lg-12">
+										<div class="head-bar">
+											<img style="float: left; height: 150px; width: 130px"
+												src="resources/images/sanam.jpg">
+										</div>
+									</div>
+								</div>
+
+								<div class="col-md-9 col-sm-9 col-lg-">
+
+									<div class="col-md-12 col-sm-12 col-lg-12">
+
+
+
+
+										<div class="table-responsive">
+											<table class="table table-bordered ">
+
+												<tbody>
+													<tr class="size">
+														<td style="width: 25%">Employee-ID</td>
+														<td><strong>${employeeDetails.id}</strong></td>
+													</tr>
+													<tr class="size">
+														<td style="width: 25%">Name</td>
+														<td><strong>${employeeDetails.name}</strong></td>
+
+													</tr>
+
+													<tr class="size">
+														<td style="width: 25%">Service Line</td>
+														<td><strong>${employeeDetails.serviceLine}</strong></td>
+
+													</tr>
+													<tr class="size">
+														<td style="width: 25%">Practice</td>
+														<td><strong>${employeeDetails.practice}</strong></td>
+													</tr>
+													<tr class="size">
+														<td style="width: 25%">Email-ID</td>
+														<td><strong>${employeeDetails.email}</strong></td>
+
+													</tr>
+												</tbody>
+											</table>
+
+										</div>
+
+
+
+
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<!-- <button type="button" class="btn btn-default"
+									data-dismiss="modal">Log out</button> -->
+								<a href="logout"><strong>Logout</strong></a>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<!-- Modal End -->
 		</div>
 
 	</div>
@@ -65,12 +148,12 @@
 							style="font-size: 14px">&nbsp RECOGNIZE KARMA</strong>
 					</div>
 					<div class="panel-body">
-						<form:form action="#" method="post" class="form-group"
+						<form:form action="karma" method="post" class="form-group"
 							modelAttribute="badgeTransaction">
 							<div class="row">
 								<div class="col-md-12">
 									<div class="col-md-6">
-										<form:input path="receiver" type="text" class="form-control"
+										<form:input path="receiverId" type="text" class="form-control"
 											placeholder="Select a Newer"
 											style="padding-left: 40px; border: 1px solid #e5e5e5;" />
 										<input type="hidden" name="user" id="user" /> <span
@@ -83,10 +166,11 @@
 											<span> <form:select path="badge" class="form-control"
 													name="badgeType" id="badgeType">
 													<option>Select a Badge</option>
-													<option value="gold">Gold &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+													<option value="gold">Gold
+														&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 														(${remainingBadges.gold})</option>
-													<option value="silver">Silver &nbsp;&nbsp;&nbsp;&nbsp;
-														(${remainingBadges.silver})</option>
+													<option value="silver">Silver
+														&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (${remainingBadges.silver})</option>
 													<option value="bronze">Bronze &nbsp;&nbsp;&nbsp;
 														(${remainingBadges.bronze})</option>
 												</form:select>

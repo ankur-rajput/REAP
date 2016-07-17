@@ -11,8 +11,7 @@ public class ReceivedBadges {
 	@Id
 	@GeneratedValue
 	private int id;
-	private int gold=0, silver=0, bronze=0;
-	private int points;
+	private int gold = 0, silver = 0, bronze = 0, points = 0;
 	@OneToOne
 	@JoinColumn(name = "employeeId")
 	private EmployeeDetails employeeDetails;

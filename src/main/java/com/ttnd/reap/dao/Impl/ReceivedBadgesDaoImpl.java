@@ -44,4 +44,73 @@ public class ReceivedBadgesDaoImpl implements IReceivedBadgesDao {
 		}
 	}
 
+	@Override
+	public boolean updateGold(int employeeId) {
+		Session session = sessionFactory.openSession();
+		Criteria criteria = session.createCriteria(ReceivedBadges.class).createCriteria("employeeDetails")
+				.add(Restrictions.eq("id", employeeId));
+		ReceivedBadges receivedBadges = (ReceivedBadges) criteria.uniqueResult();
+
+		receivedBadges.setGold(receivedBadges.getGold() + 1);
+
+		Transaction transaction = session.beginTransaction();
+		try {
+			session.update(receivedBadges);
+			transaction.commit();
+			session.close();
+			return true;
+		} catch (Exception e) {
+			transaction.rollback();
+			e.printStackTrace();
+			session.close();
+			return false;
+		}
+	}
+
+	@Override
+	public boolean updateSilver(int employeeId) {
+		Session session = sessionFactory.openSession();
+		Criteria criteria = session.createCriteria(ReceivedBadges.class).createCriteria("employeeDetails")
+				.add(Restrictions.eq("id", employeeId));
+		ReceivedBadges receivedBadges = (ReceivedBadges) criteria.uniqueResult();
+
+		receivedBadges.setSilver(receivedBadges.getSilver() + 1);
+
+		Transaction transaction = session.beginTransaction();
+		try {
+			session.update(receivedBadges);
+			transaction.commit();
+			session.close();
+			return true;
+		} catch (Exception e) {
+			transaction.rollback();
+			e.printStackTrace();
+			session.close();
+			return false;
+		}
+	}
+
+	@Override
+	public boolean updateBronze(int employeeId) {
+		Session session = sessionFactory.openSession();
+		Criteria criteria = session.createCriteria(ReceivedBadges.class).createCriteria("employeeDetails")
+				.add(Restrictions.eq("id", employeeId));
+		ReceivedBadges receivedBadges = (ReceivedBadges) criteria.uniqueResult();
+
+		receivedBadges.setBronze(receivedBadges.getBronze() + 1);
+
+		Transaction transaction = session.beginTransaction();
+		try {
+			session.update(receivedBadges);
+			transaction.commit();
+			session.close();
+			return true;
+		} catch (Exception e) {
+			transaction.rollback();
+			e.printStackTrace();
+			session.close();
+			return false;
+		}
+	}
+
 }

@@ -5,15 +5,13 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 
 @Entity
 public class BadgeTransaction {
 	@Id
 	@GeneratedValue
 	private int id;
-	@OneToOne
-	private EmployeeDetails sender,receiver;
+	private int senderId, receiverId;
 	private Date date;
 	private String badge, karma, reason;
 
@@ -25,20 +23,20 @@ public class BadgeTransaction {
 		this.id = id;
 	}
 
-	public EmployeeDetails getSender() {
-		return sender;
+	public int getSenderId() {
+		return senderId;
 	}
 
-	public void setSender(EmployeeDetails sender) {
-		this.sender = sender;
+	public void setSenderId(int senderId) {
+		this.senderId = senderId;
 	}
 
-	public EmployeeDetails getReceiver() {
-		return receiver;
+	public int getReceiverId() {
+		return receiverId;
 	}
 
-	public void setReceiver(EmployeeDetails receiver) {
-		this.receiver = receiver;
+	public void setReceiverId(int receiverId) {
+		this.receiverId = receiverId;
 	}
 
 	public Date getDate() {

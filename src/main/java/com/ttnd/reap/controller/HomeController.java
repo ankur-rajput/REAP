@@ -15,6 +15,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ttnd.reap.pojo.BadgeTransaction;
 import com.ttnd.reap.pojo.EmployeeDetails;
 import com.ttnd.reap.pojo.ReceivedBadges;
+import com.ttnd.reap.pojo.RemainingBadges;
+import com.ttnd.reap.service.IBadgeTransactionService;
 import com.ttnd.reap.service.IService;
 
 @Controller
@@ -24,8 +26,8 @@ public class HomeController {
 	@Autowired
 	private IService service;
 
-	// @Autowired
-	// private HttpSession httpSession;
+	@Autowired
+	private IBadgeTransactionService badgeTransactionService;
 
 	@RequestMapping(value = { "/" }, method = RequestMethod.GET)
 	public ModelAndView home1(HttpSession httpSession) {
@@ -40,7 +42,7 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
-	public ModelAndView home2(HttpSession httpSession){
+	public ModelAndView home2(HttpSession httpSession) {
 		EmployeeDetails employeeDetails = (EmployeeDetails) httpSession.getAttribute("employeeDetails");
 		ModelAndView modelAndView = new ModelAndView();
 		if (employeeDetails == null) {
@@ -53,8 +55,8 @@ public class HomeController {
 		modelAndView.setViewName("home");
 		return modelAndView;
 	}
-	
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
+
+	@RequestMapping(value = { "/login" }, method = RequestMethod.GET)
 	public ModelAndView login(HttpSession httpSession) {
 		EmployeeDetails employeeDetails = (EmployeeDetails) httpSession.getAttribute("employeeDetails");
 		ModelAndView modelAndView = new ModelAndView();
@@ -69,8 +71,16 @@ public class HomeController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ModelAndView login(@RequestParam("email_id") String email_id, @RequestParam("password") String password,
 			HttpSession httpSession) {
-		EmployeeDetails employeeDetails;
+		EmployeeDetails employeeDetails = (EmployeeDetails) httpSession.getAttribute("employeeDetails");
 		ModelAndView modelAndView = new ModelAndView();
+		if (employeeDetails != null) {
+			httpSession.setAttribute("employeeDetails", employeeDetails);
+			modelAndView.addObject("badgeTransaction", new BadgeTransaction());
+			modelAndView.addObject("receivedBadges", service.getReceivedBadgesOfEmployee(employeeDetails));
+			modelAndView.addObject("remainingBadges", service.getRemainingBadgesOfEmployee(employeeDetails));
+			modelAndView.setViewName("redirect:home");
+			return modelAndView;
+		}
 		try {
 			int id = Integer.parseInt(email_id);
 			employeeDetails = service.findEmployeeById(id, password);
@@ -109,6 +119,16 @@ public class HomeController {
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public ModelAndView register(@ModelAttribute EmployeeDetails employeeDetails, HttpSession httpSession) {
 		ModelAndView modelAndView = new ModelAndView();
+		EmployeeDetails employeeDetailsSession = (EmployeeDetails) httpSession.getAttribute("employeeDetails");
+		if (employeeDetailsSession != null) {
+			httpSession.setAttribute("employeeDetails", employeeDetails);
+			modelAndView.addObject("badgeTransaction", new BadgeTransaction());
+			modelAndView.addObject("receivedBadges", service.getReceivedBadgesOfEmployee(employeeDetails));
+			modelAndView.addObject("remainingBadges", service.getRemainingBadgesOfEmployee(employeeDetails));
+			modelAndView.setViewName("redirect:home");
+			return modelAndView;
+		}
+
 		int success = service.save(employeeDetails);
 		if (success == 1) {
 			httpSession.setAttribute("employeeDetails", employeeDetails);
@@ -130,6 +150,12 @@ public class HomeController {
 
 	}
 
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public String logout(HttpSession httpSession) {
+		httpSession.invalidate();
+		return "redirect:login";
+	}
+
 	@RequestMapping(value = "/badges", method = RequestMethod.GET)
 	public ModelAndView badges(HttpSession httpSession) {
 		EmployeeDetails employeeDetails = (EmployeeDetails) httpSession.getAttribute("employeeDetails");
@@ -145,14 +171,41 @@ public class HomeController {
 		return modelAndView;
 	}
 
-	public ModelAndView badges(@ModelAttribute BadgeTransaction badgeTransaction, HttpSession httpSession) {
+	@RequestMapping(value = { "/karma" }, method = RequestMethod.GET)
+	public ModelAndView karma(HttpSession httpSession) {
 		EmployeeDetails employeeDetails = (EmployeeDetails) httpSession.getAttribute("employeeDetails");
 		ModelAndView modelAndView = new ModelAndView();
-		badgeTransaction.setSender(employeeDetails);
+		if (employeeDetails == null) {
+			modelAndView.addObject("msg", "Please login first!!!");
+			modelAndView.setViewName("redirect:login");
+			return modelAndView;
+		}
+		modelAndView.addObject("badgeTransaction", new BadgeTransaction());
+		modelAndView.addObject("receivedBadges", service.getReceivedBadgesOfEmployee(employeeDetails));
+		modelAndView.addObject("remainingBadges", service.getRemainingBadgesOfEmployee(employeeDetails));
+		modelAndView.setViewName("redirect:home");
+		return modelAndView;
+	}
+
+	@RequestMapping(value = "/karma", method = RequestMethod.POST)
+	public ModelAndView recognizeKarma(@ModelAttribute BadgeTransaction badgeTransaction, HttpSession httpSession) {
+		EmployeeDetails employeeDetails = (EmployeeDetails) httpSession.getAttribute("employeeDetails");
+		ModelAndView modelAndView = new ModelAndView();
+		if (employeeDetails == null) {
+			modelAndView.addObject("msg", "Please login first!!!");
+			modelAndView.setViewName("redirect:login");
+		}
+		badgeTransaction.setSenderId(employeeDetails.getId());
 		badgeTransaction.setDate(new Date());
-		modelAndView.setViewName("myBadges");
+
+		int success = badgeTransactionService.recognizeKarma(badgeTransaction);
+
 		ReceivedBadges receivedBadges = service.getReceivedBadgesOfEmployee(employeeDetails);
 		modelAndView.addObject("receivedBadges", receivedBadges);
+		RemainingBadges remainingBadges = service.getRemainingBadgesOfEmployee(employeeDetails);
+		modelAndView.addObject("remainingBadges", remainingBadges);
+		modelAndView.addObject("successMessage", success);
+		modelAndView.setViewName("redirect:home");
 		return modelAndView;
 	}
 }

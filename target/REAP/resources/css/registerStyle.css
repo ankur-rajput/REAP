@@ -1,11 +1,112 @@
-body{
-    background-color: #525252;
+body {
+	background-color: #525252;
 }
-.centered-form{
+
+.centered-form {
 	margin-top: 60px;
 }
 
-.centered-form .panel{
+.centered-form .panel {
 	background: rgba(255, 255, 255, 0.8);
 	box-shadow: rgba(0, 0, 0, 0.3) 20px 20px 20px;
+}
+
+.user-image {
+	float: auto;
+	border-radius: 20%;
+	margin-right: 10px;
+	margin-top: -2px;
+	height: 100px;
+	width: 80px;
+}
+
+.modal-header, h4, .close {
+	background-color: #5cb85c;
+	color: white !important;
+	text-align: center;
+	font-size: 30px;
+}
+
+.modal-footer {
+	background-color: #f9f9f9;
+}
+
+div {
+	display: block;
+}
+
+tr.size {td { width:90px;
+	
+}
+
+}
+table {
+	table-layout: fixed;
+	word-wrap: break-word;
+}
+
+.head-bar img {
+	float: left;
+	margin-right: 10px;
+	margin-top: 4px;
+	margin-bottom: 5px;
+}
+
+img {
+	vertical-align: middle;
+}
+
+.panel {
+	overflow: auto;
+}
+
+body {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	line-height: 1.42857143;
+	color: #333;
+	background-color: #fff;
+}
+
+@media ( max-width : 1200px) .head-bar {
+	width
+	:
+	 
+	100%;
+	float
+	:
+	 
+	left
+	;
+	
+    
+	padding
+	:
+	 
+	4
+	px
+	 
+	20
+	px
+	;
+	
+    
+	border-radius
+	:
+	 
+	5
+	px
+	 
+	5
+	px
+	 
+	0
+	0;
+	height
+	:
+	 
+	auto
+	;
+	
+
 }
