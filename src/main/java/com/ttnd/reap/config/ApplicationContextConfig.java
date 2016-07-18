@@ -50,7 +50,7 @@ public class ApplicationContextConfig extends WebMvcConfigurerAdapter {
 	public DataSource getDataSource() {
 		dataSource = new BasicDataSource();
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-		dataSource.setUrl("jdbc:mysql://localhost:3306/REAP");
+		dataSource.setUrl("jdbc:mysql://localhost:3306/reap");
 		dataSource.setUsername("root");
 		dataSource.setPassword("ankur@123");
 		return dataSource;
@@ -62,7 +62,7 @@ public class ApplicationContextConfig extends WebMvcConfigurerAdapter {
 		properties.put("hibernate.show_sql", "true");
 		properties.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
 		properties.put("hibernate.current_session_context_class", "thread");
-		properties.put("hbm2ddl.auto", "update");
+		properties.put("hibernate.hbm2ddl.auto", "update");
 		return properties;
 	}
 

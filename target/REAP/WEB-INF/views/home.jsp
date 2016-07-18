@@ -25,7 +25,7 @@
 	<nav class="navbar navbar-static-top myNavbarClass" style="margin: 0;"
 		role="navigation">
 	<div class="navbar-header" style="float: left; width: 50%">
-		<a href="#" class="logo"><img src="resources/images/reap-logo.png"
+		<a href="home" class="logo"><img src="resources/images/reap-logo.png"
 			style="margin-top: 10px; width: 107px; height: 32px";></a> <img
 			class="reapfull hidden-xs" src="resources/images/reap.png">
 	</div>
@@ -45,10 +45,6 @@
 				<li><a href='<c:url value="badges" />' class="navbtn"
 					id="badge"><img src="resources/images/ico-badge.png">
 						Badges</a></li>
-				<li><a href="#" class="navbtn" id="idea"><img
-						src="resources/images/ico-idea.png"> Idea</a></li>
-				<li><a href="#"><img src="resources/images/ico-bell.png"
-						style="margin-top:"></a></li>
 				<li style="float: right padding-top:2px;"><a href="#"><img
 						src="resources/images/sanam.jpg"
 						style="margin-top: 2px; width: 40px; height: 50px"
@@ -145,7 +141,7 @@
 					<div class="panel-heading"
 						style="background: #ea8744; color: #ffffff">
 						<img src="resources/images/ico-badge-white.png" /> <strong
-							style="font-size: 14px">&nbsp RECOGNIZE KARMA</strong>
+							style="font-size: 14px">&nbsp; RECOGNIZE KARMA</strong>
 					</div>
 					<div class="panel-body">
 						<form:form action="karma" method="post" class="form-group"
@@ -239,31 +235,32 @@
 
 						<div class="panel-body">
 							<div class="content">
-								<div class="row">
-									<div class="col-md-2" style="padding-top: 10px">
-										<center>
-											<img src="resources/images/my-photo" alt="image"
-												class="img-rounded" width="50px" height="50px">
-										</center>
-									</div>
-									<c:forEach var="badgeTransaction"
-										items="${badgeTransactionList}">
+
+								<c:forEach var="badgeTransaction"
+									items="${badgeTransactionList}">
+									<div class="row">
+										<div class="col-md-2" style="padding-top: 10px">
+											<center>
+												<img src="resources/images/my-photo" alt="image"
+													class="img-rounded" width="50px" height="50px">
+											</center>
+										</div>
 										<div class="col-md-10" style="padding-top: 10px">
 											<strong><a
 												href="badge/index/${badgeTransaction.receiver.id}">${badgeTransaction.receiver.name}</a></strong>
 											has received <img src="resources/images/silver.png"
 												title="Silver" alt="Silver"> from <strong><a
-												href="badge/index/${badgeTransaction.receiver.id}">${badgeTransaction.receiver.name}</a></strong>
+												href="badge/index/${badgeTransaction.sender.id}">${badgeTransaction.sender.name}</a></strong>
 											for Karma : ${badgeTransaction.karma}
 											<div>
 												Reason : ${badgeTransaction.reason} <br> <i
-													class="momentDate""> ${badgeTransaction.date} </i>
+													class="momentDate"> ${badgeTransaction.date} </i>
 											</div>
 										</div>
-										<hr>
-									</c:forEach>
+									</div>
+									<hr>
+								</c:forEach>
 
-								</div>
 							</div>
 						</div>
 						<!-- end of panel body -->
@@ -288,9 +285,9 @@
 							</div>
 							<div class="col-lg-8" style="padding-top: 10px">
 								<div class="row">
-									<a href="#"> <strong style="font-size: 15px"><a
-											href="badge/index/${employeeDetails.id}">${employeeDetails.name}</a></strong>
-									</a>
+									<a href="badge/index/${employeeDetails.id}"> <strong
+										style="font-size: 15px">${employeeDetails.name}</strong></a>
+
 								</div>
 								<div class="row" style="padding-top: 5px">
 									<div class="col-xs-3">
@@ -322,123 +319,50 @@
 					<ul class="nav nav-tabs">
 						<li class="active"><a href="#tab1" data-toggle="tab">NEWER
 								BOARDS</a></li>
-						<li><a href="#tab2" data-toggle="tab">IDEAS</a></li>
+						<!-- <li><a href="#tab2" data-toggle="tab">IDEAS</a></li> -->
 					</ul>
 					<div class="tab-content" style="background: #ffffff;">
 						<div class="tab-pane active" id="tab1">
 							<div class="container-fluid">
-								<div class="row">
-									<div class="col-lg-4" style="padding-top: 10px">
-										<center>
-											<img src="resources/images/my-photo" alt="image"
-												class="img-rounded" width="50px" height="50px">
-										</center>
-									</div>
-									<div class="col-lg-8" style="padding-top: 10px">
-										<div class="row">
-											<a href="#"> <strong style="font-size: 15px">Ankur
-													TTND</strong>
-											</a>
+								<c:forEach var="receivedBadges" items="${receivedBadgesList}">
+									<div class="row">
+										<div class="col-lg-4" style="padding-top: 10px">
+											<center>
+												<img src="resources/images/my-photo" alt="image"
+													class="img-rounded" width="50px" height="50px">
+											</center>
 										</div>
-										<div class="row" style="padding-top: 5px">
-											<div class="col-xs-3">
-												<img class="img-rounded img-responsive"
-													src="resources/images/gold.png">
+										<div class="col-lg-8" style="padding-top: 10px">
+											<div class="row">
+												<a href="badge/index/${receivedBadges.employeeDetails.id}">
+													<strong style="font-size: 15px">${receivedBadges.employeeDetails.name}</strong>
+												</a>
 											</div>
-											<div class="col-xs-3">
-												<img class="img-rounded img-responsive"
-													src="resources/images/silver.png">
+											<div class="row" style="padding-top: 5px">
+												<div class="col-xs-3">
+													<img class="img-rounded img-responsive"
+														src="resources/images/gold.png">
+												</div>
+												<div class="col-xs-3">
+													<img class="img-rounded img-responsive"
+														src="resources/images/silver.png">
+												</div>
+												<div class="col-xs-3">
+													<img class="img-rounded img-responsive"
+														src="resources/images/bronze.png">
+												</div>
 											</div>
-											<div class="col-xs-3">
-												<img class="img-rounded img-responsive"
-													src="resources/images/bronze.png">
+											<div class="row" style="padding-top: 5px">
+												<div class="col-xs-3">${receivedBadges.gold}</div>
+												<div class="col-xs-3">${receivedBadges.silver}</div>
+												<div class="col-xs-3">${receivedBadges.bronze}</div>
 											</div>
-										</div>
-										<div class="row" style="padding-top: 5px">
-											<div class="col-xs-3">0</div>
-											<div class="col-xs-3">1</div>
-											<div class="col-xs-3">0</div>
-										</div>
-									</div>
-								</div>
-								<hr>
-								<div class="row">
-									<div class="col-lg-4" style="padding-top: 10px">
-										<center>
-											<img src="resources/images/my-photo" alt="image"
-												class="img-rounded" width="50px" height="50px">
-										</center>
-									</div>
-									<div class="col-lg-8" style="padding-top: 10px">
-										<div class="row">
-											<a href="#"> <strong style="font-size: 15px">Ankur
-													TTND</strong>
-											</a>
-										</div>
-										<div class="row" style="padding-top: 5px">
-											<div class="col-xs-3">
-												<img class="img-rounded img-responsive"
-													src="resources/images/gold.png">
-											</div>
-											<div class="col-xs-3">
-												<img class="img-rounded img-responsive"
-													src="resources/images/silver.png">
-											</div>
-											<div class="col-xs-3">
-												<img class="img-rounded img-responsive"
-													src="resources/images/bronze.png">
-											</div>
-										</div>
-										<div class="row" style="padding-top: 5px">
-											<div class="col-xs-3">0</div>
-											<div class="col-xs-3">1</div>
-											<div class="col-xs-3">0</div>
 										</div>
 									</div>
-								</div>
-								<hr>
+									<hr>
+								</c:forEach>
+
 							</div>
-						</div>
-						<div class="tab-pane" id="tab2">
-							<div class="row" style="padding-top: 7px">
-								<div class="col-lg-3" style="padding-top: 10px">
-									<center>
-										<img src="resources/images/my-photo" alt="image"
-											class="img-rounded" width="50px" height="50px">
-									</center>
-								</div>
-								<div class="col-lg-9" style="padding-top: 10px">
-									<div>
-										<a href="#ideaInfo_20"
-											title="Standard Operating Procedure (SOP)">Standard
-											Operating Procedure (SOP)</a> <i> <a href="/badge/index/1093">
-												<strong>Surendra Mahawar</strong>
-										</a>
-										</i>
-									</div>
-								</div>
-							</div>
-							<hr>
-							<div class="row" style="padding-top: 7px">
-								<div class="col-lg-3" style="padding-top: 10px">
-									<center>
-										<img src="resources/images/my-photo" alt="image"
-											class="img-rounded" width="50px" height="50px">
-									</center>
-								</div>
-								<div class="col-lg-9" style="padding-top: 10px">
-									<div>
-										<a href="#ideaInfo_20"
-											title="Standard Operating Procedure (SOP)">Standard
-											Operating Procedure (SOP) -</a> <i> <a
-											href="/badge/index/1093"> <strong>Surendra
-													Mahawar</strong>
-										</a>
-										</i>
-									</div>
-								</div>
-							</div>
-							<hr />
 						</div>
 					</div>
 					<!-- tab-content ended -->

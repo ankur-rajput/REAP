@@ -7,8 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link rel="shortcut icon"
-	href="/REAP/resources/images/favicon.ico"
+<link rel="shortcut icon" href="/REAP/resources/images/favicon.ico"
 	type="image/x-icon">
 <title>REAP</title>
 
@@ -26,9 +25,9 @@
 	<nav class="navbar navbar-static-top myNavbarClass" style="margin: 0;"
 		role="navigation">
 	<div class="navbar-header" style="float: left; width: 50%">
-		<a href="#" class="logo"><img
+		<a href="home" class="logo"><img
 			src="/REAP/resources/images/reap-logo.png"
-			style="margin-top: 10px; width: 107px; height: 32px";></a> <img
+			style="margin-top: 10px; width: 107px; height: 32px;"></a> <img
 			class="reapfull hidden-xs" src="/REAP/resources/images/reap.png">
 	</div>
 	<div>
@@ -42,14 +41,95 @@
 		<div class="myMenu">
 			<ul id="myNavbarButtons" class="nav navbar-nav" style="float: right">
 				<li><a href='<c:url value="/" />' class="navbtn" id="dashboard"><img
-						id="test" src="/REAP/resources/images/ico-dashboard.png"> Dashboard</a></li>
+						id="test" src="resources/images/ico-dashboard.png">
+						Dashboard</a></li>
 				<li><a href='<c:url value="badges" />' class="navbtn"
-					id="badge"><img src="/REAP/resources/images/ico-badge.png"> Badges</a></li>
-				<li><a href="#" class="navbtn" id="idea"><img
-						src="/REAP/resources/images/ico-idea.png"> Idea</a></li>
-				<li><a href="#"><img src="/REAP/resources/images/ico-bell.png"
-						style="margin-top:"></a></li>
+					id="badge"><img src="resources/images/ico-badge.png">
+						Badges</a></li>
+				<li style="float: right padding-top:2px;"><a href="#"><img
+						src="resources/images/sanam.jpg"
+						style="margin-top: 2px; width: 40px; height: 50px"
+						; data-toggle="modal" data-target="#myModal"></a></li>
 			</ul>
+			<!-- Modal -->
+			<div id="myModal" class="modal fade" role="dialog"
+				data-backdrop="false">
+				<div class="modal-dialog">
+
+					<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 class="modal-title">Your Profile</h4>
+						</div>
+						<div class="modal-body">
+							<div class="row">
+								<div class="col-md-3 col-sm-3 col-lg-3E">
+									<div class="col-md-12 col-sm-12 col-lg-12">
+										<div class="head-bar">
+											<img style="float: left; height: 150px; width: 130px"
+												src="resources/images/sanam.jpg">
+										</div>
+									</div>
+								</div>
+
+								<div class="col-md-9 col-sm-9 col-lg-">
+
+									<div class="col-md-12 col-sm-12 col-lg-12">
+
+
+
+
+										<div class="table-responsive">
+											<table class="table table-bordered ">
+
+												<tbody>
+													<tr class="size">
+														<td style="width: 25%">Employee-ID</td>
+														<td><strong>${employeeDetails.id}</strong></td>
+													</tr>
+													<tr class="size">
+														<td style="width: 25%">Name</td>
+														<td><strong>${employeeDetails.name}</strong></td>
+
+													</tr>
+
+													<tr class="size">
+														<td style="width: 25%">Service Line</td>
+														<td><strong>${employeeDetails.serviceLine}</strong></td>
+
+													</tr>
+													<tr class="size">
+														<td style="width: 25%">Practice</td>
+														<td><strong>${employeeDetails.practice}</strong></td>
+													</tr>
+													<tr class="size">
+														<td style="width: 25%">Email-ID</td>
+														<td><strong>${employeeDetails.email}</strong></td>
+
+													</tr>
+												</tbody>
+											</table>
+
+										</div>
+
+
+
+
+									</div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<!-- <button type="button" class="btn btn-default"
+									data-dismiss="modal">Log out</button> -->
+								<a href="logout"><strong>Logout</strong></a>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<!-- Modal End -->
 		</div>
 
 	</div>
@@ -66,7 +146,7 @@
 						<div class="panel-heading"
 							style="background: #8d9fc4; color: #ffffff">
 							<img src="/REAP/resources/images/ico-badge.png" /> <strong
-								style="font-size: 14px">&nbsp Badges and Points</strong>
+								style="font-size: 14px">&nbsp; Badges and Points</strong>
 						</div>
 
 						<div class="panel-body">
@@ -77,7 +157,8 @@
 									<div class="col-md-12">
 										<div class="head-bar badge-content-left">
 											<span style="padding: 4px 12px;"> <img
-												class="image-responsive" src="/REAP/resources/images/sanam.jpg"
+												class="image-responsive"
+												src="/REAP/resources/images/sanam.jpg"
 												style="height: 42px width:35px">
 											</span>
 										</div>
@@ -115,11 +196,12 @@
 								</div>
 								<div class="col-md-3 custom-availablePoints">
 
-									<!-- 
 									<div class="col-md-12 h1point custom-availablePoints">
-										<strong><h1>0 pts</h1></strong>
+										<h1>
+											<strong>${receivedBadges.points}</strong>
+										</h1>
 
-									</div> -->
+									</div>
 
 								</div>
 
@@ -158,16 +240,15 @@
 												<li role="presentation" class="active"><a href="#"
 													role="tab"> <b>ALL(0)</b>
 												</a></li>
-												<li role="presentation" class=""><a href="shared" role="tab">
-														<b> BADGES SHARED(0)</b>
+												<li role="presentation" class=""><a href="shared"
+													role="tab"> <b> BADGES SHARED(0)</b>
 												</a></li>
-												<li role="presentation" class=""><a href="received" role="tab">
-														<b> BADGES RECIEVED(0)</b>
+												<li role="presentation" class=""><a href="received"
+													role="tab"> <b> BADGES RECIEVED(0)</b>
 												</a></li>
 
-												<li role="presentation" class=""><a
-													href="badgeHistory" role="tab"> <b>
-															BADGES HISTORY</b>
+												<li role="presentation" class=""><a href="badgeHistory"
+													role="tab"> <b> BADGES HISTORY</b>
 												</a></li>
 											</ul>
 
@@ -192,7 +273,5 @@
 		<!--Container fluid over-->
 	</div>
 	<!--Class row over-->
-
-	</div>
 </body>
 </html>

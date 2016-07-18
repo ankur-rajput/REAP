@@ -25,7 +25,7 @@
 	<nav class="navbar navbar-static-top myNavbarClass" style="margin: 0;"
 		role="navigation">
 	<div class="navbar-header" style="float: left; width: 50%">
-		<a href="#" class="logo"><img src="resources/images/reap-logo.png"
+		<a href="home" class="logo"><img src="resources/images/reap-logo.png"
 			style="margin-top: 10px; width: 107px; height: 32px";></a> <img
 			class="reapfull hidden-xs" src="resources/images/reap.png">
 	</div>
