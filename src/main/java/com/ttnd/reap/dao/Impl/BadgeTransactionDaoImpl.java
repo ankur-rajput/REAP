@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -15,6 +16,7 @@ import com.ttnd.reap.dao.IBadgeTransactionDao;
 import com.ttnd.reap.dao.IReceivedBadgesDao;
 import com.ttnd.reap.dao.IRemainingBadgesDao;
 import com.ttnd.reap.pojo.BadgeTransaction;
+import com.ttnd.reap.pojo.EmployeeDetails;
 
 @SuppressWarnings("deprecation")
 @Repository
@@ -51,6 +53,17 @@ public class BadgeTransactionDaoImpl implements IBadgeTransactionDao {
 					throw new ZeroBadgesException();
 				receivedBadgesDao.updateBronze(badgeTransaction.getReceiverId());
 			}
+
+			Criteria criteria = session.createCriteria(EmployeeDetails.class)
+					.add(Restrictions.eq("id", badgeTransaction.getSenderId()));
+			EmployeeDetails sender = (EmployeeDetails) criteria.uniqueResult();
+			badgeTransaction.setSender(sender);
+
+			criteria = session.createCriteria(EmployeeDetails.class)
+					.add(Restrictions.eq("id", badgeTransaction.getSenderId()));
+			EmployeeDetails receiver = (EmployeeDetails) criteria.uniqueResult();
+			badgeTransaction.setReceiver(receiver);
+
 			session.save(badgeTransaction);
 			transaction.commit();
 			return 1;

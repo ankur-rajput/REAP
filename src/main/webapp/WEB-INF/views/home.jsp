@@ -149,7 +149,7 @@
 					</div>
 					<div class="panel-body">
 						<form:form action="karma" method="post" class="form-group"
-							modelAttribute="badgeTransaction">
+							modelAttribute="newBadgeTransaction">
 							<div class="row">
 								<div class="col-md-12">
 									<div class="col-md-6">
@@ -224,75 +224,9 @@
 										style="font-size: 16px"> WALL OF FAME</strong>
 								</div>
 								<form action="#" method="post">
-									<div class="col-md-2">
+									<div class="col-md-7">
 										<input type="text" class="form-control" placeholder="Search"
 											value="">
-									</div>
-									<div class="col-md-3">
-										<span> <select class="form-control" required
-											name="services" id="services" showAll="true"
-											defaultLabel="Service Lines">
-												<option value="">Service Lines</option>
-												<option value="2">Analytics</option>
-												<option value="12">Analytics-SEA</option>
-												<option value="9">Digital Marketing</option>
-												<option value="20">Digital Marketing India</option>
-												<option value="13">Digital Marketing-SEA</option>
-												<option value="1">Technology</option>
-												<option value="6">ThoughtBuzz India</option>
-												<option value="21">TTN Overheads</option>
-												<option value="23">TTND-Intern</option>
-												<option value="17">TTND-SEA</option>
-												<option value="22">TTNV</option>
-												<option value="19">Video Solutions</option>
-										</select>
-										</span>
-									</div>
-									<div class="col-md-2">
-										<span id="practicehead"> <select name="practice"
-											class="form-control" showAll="true" defaultLabel="Practices"
-											id="practice">
-												<option value="">Practices</option>
-												<option value="6">Admin</option>
-												<option value="14">AMC</option>
-												<option value="63">Analytics</option>
-												<option value="46">Analytics-SEA</option>
-												<option value="20">BigData</option>
-												<option value="80">BlogMint</option>
-												<option value="70">Business Development</option>
-												<option value="37">Creative</option>
-												<option value="10">Design</option>
-												<option value="71">DevOps</option>
-												<option value="66">DM India CORPORATE</option>
-												<option value="60">Drupal</option>
-												<option value="73">Feen</option>
-												<option value="16">Finance</option>
-												<option value="9">HR</option>
-												<option value="84">Intern</option>
-												<option value="68">IT</option>
-												<option value="72">JVM</option>
-												<option value="40">Management</option>
-												<option value="48">MARTECH</option>
-												<option value="23">Mean</option>
-												<option value="65">Media Planning &amp; Buying</option>
-												<option value="11">Mobility</option>
-												<option value="83">Sales &amp; Marketing</option>
-												<option value="76">Security</option>
-												<option value="58">Shared Services-SEA</option>
-												<option value="43">Social media</option>
-												<option value="64">Social Media Marketing</option>
-												<option value="50">Social Media-SEA</option>
-												<option value="28">Strategy</option>
-												<option value="74">Technology Corporate</option>
-												<option value="75">Testing</option>
-												<option value="81">ThoughtBuzz India</option>
-												<option value="67">TTN Overheads</option>
-												<option value="69">TTNVManagement</option>
-												<option value="79">Video Corporate</option>
-												<option value="78">Video Managed Services</option>
-												<option value="77">Video Ready</option>
-										</select>
-										</span>
 									</div>
 									<div class="col-md-1" id="datetimepicker">
 										<span class="glyphicon glyphicon-calendar"
@@ -312,39 +246,24 @@
 												class="img-rounded" width="50px" height="50px">
 										</center>
 									</div>
-									<div class="col-md-10" style="padding-top: 10px">
-										<a href="#"> <strong>Ankur TTND</strong>
-										</a> has received <img src="resources/images/silver.png"
-											title="Silver" alt="Silver"> from <a href="#"> <strong>Pratishtha
-												Sharma</strong>
-										</a> for Karma : Knowledge Sharing
-										<div>
-											Reason : No reasons; <br> <i class="momentDate"
-												data-date="20160617 15:21:13"> DATE: 17-Jun-2016 </i>
+									<c:forEach var="badgeTransaction"
+										items="${badgeTransactionList}">
+										<div class="col-md-10" style="padding-top: 10px">
+											<strong><a
+												href="badge/index/${badgeTransaction.receiver.id}">${badgeTransaction.receiver.name}</a></strong>
+											has received <img src="resources/images/silver.png"
+												title="Silver" alt="Silver"> from <strong><a
+												href="badge/index/${badgeTransaction.sender.id}">${badgeTransaction.sender.name}</a></strong>
+											for Karma : ${badgeTransaction.karma}
+											<div>
+												Reason : ${badgeTransaction.reason} <br> <i
+													class="momentDate""> ${badgeTransaction.date} </i>
+											</div>
 										</div>
-									</div>
+										<hr>
+									</c:forEach>
+
 								</div>
-								<hr>
-								<div class="row">
-									<div class="col-md-2" style="padding-top: 10px">
-										<center>
-											<img src="resources/images/my-photo" alt="image"
-												class="img-rounded" width="50px" height="50px">
-										</center>
-									</div>
-									<div class="col-md-10" style="padding-top: 10px">
-										<a href="#"> <strong>Ankur TTND</strong>
-										</a> has received <img src="resources/images/silver.png"
-											title="Silver" alt="Silver"> from <a href="#"> <strong>Pratishtha
-												Sharma</strong>
-										</a> for Karma : Knowledge Sharing
-										<div>
-											Reason : No reasons; <br> <i class="momentDate"
-												data-date="20160617 15:21:13"> DATE: 17-Jun-2016 </i>
-										</div>
-									</div>
-								</div>
-								<hr>
 							</div>
 						</div>
 						<!-- end of panel body -->

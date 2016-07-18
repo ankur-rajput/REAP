@@ -49,10 +49,10 @@ public class HomeController {
 			modelAndView.setViewName("redirect:/login");
 			return modelAndView;
 		}
-		modelAndView.addObject("badgeTransaction", new BadgeTransaction());
+		modelAndView.addObject("newBadgeTransaction", new BadgeTransaction());
 		modelAndView.addObject("receivedBadges", service.getReceivedBadgesOfEmployee(employeeDetails));
 		modelAndView.addObject("remainingBadges", service.getRemainingBadgesOfEmployee(employeeDetails));
-		modelAndView.addObject("wallOfFame", badgeTransactionService.wallOfFame());
+		modelAndView.addObject("badgeTransactionList", badgeTransactionService.wallOfFame());
 		modelAndView.setViewName("home");
 		return modelAndView;
 	}

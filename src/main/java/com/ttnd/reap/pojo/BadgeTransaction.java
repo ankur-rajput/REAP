@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class BadgeTransaction {
@@ -12,6 +13,8 @@ public class BadgeTransaction {
 	@GeneratedValue
 	private int id;
 	private int senderId, receiverId;
+	@OneToOne
+	private EmployeeDetails sender, receiver;
 	private Date date;
 	private String badge, karma, reason;
 
@@ -69,6 +72,22 @@ public class BadgeTransaction {
 
 	public void setReason(String reason) {
 		this.reason = reason;
+	}
+
+	public EmployeeDetails getSender() {
+		return sender;
+	}
+
+	public void setSender(EmployeeDetails sender) {
+		this.sender = sender;
+	}
+
+	public EmployeeDetails getReceiver() {
+		return receiver;
+	}
+
+	public void setReceiver(EmployeeDetails receiver) {
+		this.receiver = receiver;
 	}
 
 }
