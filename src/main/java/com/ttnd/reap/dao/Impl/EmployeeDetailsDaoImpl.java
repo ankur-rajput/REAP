@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
+import org.jasypt.util.password.BasicPasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -45,18 +46,48 @@ public class EmployeeDetailsDaoImpl implements IEmployeeDetailsDao {
 
 	@Override
 	public EmployeeDetails findEmployeeById(int id, String password) {
+		EmployeeDetails employeeDetails = null;
 		Session session = sessionFactory.openSession();
-		Criteria criteria = session.createCriteria(EmployeeDetails.class).add(Restrictions.eq("id", id))
-				.add(Restrictions.eq("password", password));
-		return (EmployeeDetails) criteria.uniqueResult();
+		Transaction transaction = session.beginTransaction();
+		try {
+			Criteria criteria = session.createCriteria(EmployeeDetails.class).add(Restrictions.eq("id", id));
+			employeeDetails = (EmployeeDetails) criteria.uniqueResult();
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		if (employeeDetails != null) {
+			if (new BasicPasswordEncryptor().checkPassword(password, employeeDetails.getPassword())) {
+				return employeeDetails;
+			}
+		}
+		return null;
 	}
 
 	@Override
 	public EmployeeDetails findEmployeeByEmail(String email, String password) {
+		EmployeeDetails employeeDetails = null;
 		Session session = sessionFactory.openSession();
-		Criteria criteria = session.createCriteria(EmployeeDetails.class).add(Restrictions.eq("email", email))
-				.add(Restrictions.eq("password", password));
-		return (EmployeeDetails) criteria.uniqueResult();
+		Transaction transaction = session.beginTransaction();
+		try {
+			Criteria criteria = session.createCriteria(EmployeeDetails.class).add(Restrictions.eq("email", email));
+			employeeDetails = (EmployeeDetails) criteria.uniqueResult();
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		if (employeeDetails != null) {
+			if (new BasicPasswordEncryptor().checkPassword(password, employeeDetails.getPassword())) {
+				return employeeDetails;
+			}
+		}
+		return null;
 	}
 
 }

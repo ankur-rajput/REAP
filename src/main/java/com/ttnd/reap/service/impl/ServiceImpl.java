@@ -1,5 +1,6 @@
 package com.ttnd.reap.service.impl;
 
+import org.jasypt.util.password.BasicPasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +26,9 @@ public class ServiceImpl implements IService {
 
 	@Override
 	public int save(EmployeeDetails employeeDetails) {
+		BasicPasswordEncryptor basicPasswordEncryptor = new BasicPasswordEncryptor();
 		employeeDetails.setEmail(employeeDetails.getUser_name() + "@tothenew.com");
+		employeeDetails.setPassword(basicPasswordEncryptor.encryptPassword(employeeDetails.getPassword()));
 		// employeeDetails.setRole("User");
 		int success = employeeDetailsDao.save(employeeDetails);
 		if (success == 1) {

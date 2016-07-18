@@ -21,10 +21,21 @@ public class ReceivedBadgesDaoImpl implements IReceivedBadgesDao {
 
 	@Override
 	public ReceivedBadges getReceivedBadgesOfEmployee(EmployeeDetails employeeDetails) {
+		ReceivedBadges receivedBadges = null;
 		Session session = sessionFactory.openSession();
-		Criteria criteria = session.createCriteria(ReceivedBadges.class)
-				.add(Restrictions.eq("employeeDetails", employeeDetails));
-		return (ReceivedBadges) criteria.uniqueResult();
+		Transaction transaction = session.beginTransaction();
+		try {
+			Criteria criteria = session.createCriteria(ReceivedBadges.class)
+					.add(Restrictions.eq("employeeDetails", employeeDetails));
+			receivedBadges = (ReceivedBadges) criteria.uniqueResult();
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return receivedBadges;
 	}
 
 	@Override
@@ -36,10 +47,10 @@ public class ReceivedBadgesDaoImpl implements IReceivedBadgesDao {
 			receivedBadges.setEmployeeDetails(employeeDetails);
 			session.save(receivedBadges);
 			transaction.commit();
-			session.close();
 		} catch (Exception e) {
 			transaction.rollback();
 			e.printStackTrace();
+		} finally {
 			session.close();
 		}
 	}
@@ -47,14 +58,15 @@ public class ReceivedBadgesDaoImpl implements IReceivedBadgesDao {
 	@Override
 	public boolean updateGold(int employeeId) {
 		Session session = sessionFactory.openSession();
-		Criteria criteria = session.createCriteria(ReceivedBadges.class).createCriteria("employeeDetails")
-				.add(Restrictions.eq("id", employeeId));
-		ReceivedBadges receivedBadges = (ReceivedBadges) criteria.uniqueResult();
-
-		receivedBadges.setGold(receivedBadges.getGold() + 1);
-
 		Transaction transaction = session.beginTransaction();
+
 		try {
+			Criteria criteria = session.createCriteria(ReceivedBadges.class).createCriteria("employeeDetails")
+					.add(Restrictions.eq("id", employeeId));
+			ReceivedBadges receivedBadges = (ReceivedBadges) criteria.uniqueResult();
+
+			receivedBadges.setGold(receivedBadges.getGold() + 1);
+			receivedBadges.setPoints(receivedBadges.getPoints() + 30);
 			session.update(receivedBadges);
 			transaction.commit();
 			session.close();
@@ -70,14 +82,15 @@ public class ReceivedBadgesDaoImpl implements IReceivedBadgesDao {
 	@Override
 	public boolean updateSilver(int employeeId) {
 		Session session = sessionFactory.openSession();
-		Criteria criteria = session.createCriteria(ReceivedBadges.class).createCriteria("employeeDetails")
-				.add(Restrictions.eq("id", employeeId));
-		ReceivedBadges receivedBadges = (ReceivedBadges) criteria.uniqueResult();
-
-		receivedBadges.setSilver(receivedBadges.getSilver() + 1);
-
 		Transaction transaction = session.beginTransaction();
+
 		try {
+			Criteria criteria = session.createCriteria(ReceivedBadges.class).createCriteria("employeeDetails")
+					.add(Restrictions.eq("id", employeeId));
+			ReceivedBadges receivedBadges = (ReceivedBadges) criteria.uniqueResult();
+
+			receivedBadges.setSilver(receivedBadges.getSilver() + 1);
+			receivedBadges.setPoints(receivedBadges.getPoints() + 20);
 			session.update(receivedBadges);
 			transaction.commit();
 			session.close();
@@ -93,14 +106,15 @@ public class ReceivedBadgesDaoImpl implements IReceivedBadgesDao {
 	@Override
 	public boolean updateBronze(int employeeId) {
 		Session session = sessionFactory.openSession();
-		Criteria criteria = session.createCriteria(ReceivedBadges.class).createCriteria("employeeDetails")
-				.add(Restrictions.eq("id", employeeId));
-		ReceivedBadges receivedBadges = (ReceivedBadges) criteria.uniqueResult();
-
-		receivedBadges.setBronze(receivedBadges.getBronze() + 1);
-
 		Transaction transaction = session.beginTransaction();
+
 		try {
+			Criteria criteria = session.createCriteria(ReceivedBadges.class).createCriteria("employeeDetails")
+					.add(Restrictions.eq("id", employeeId));
+			ReceivedBadges receivedBadges = (ReceivedBadges) criteria.uniqueResult();
+
+			receivedBadges.setBronze(receivedBadges.getBronze() + 1);
+			receivedBadges.setPoints(receivedBadges.getPoints() + 10);
 			session.update(receivedBadges);
 			transaction.commit();
 			session.close();

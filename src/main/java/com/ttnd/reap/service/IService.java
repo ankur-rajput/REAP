@@ -14,4 +14,5 @@ public interface IService {
 	public ReceivedBadges getReceivedBadgesOfEmployee(EmployeeDetails employeeDetails);
 
 	public RemainingBadges getRemainingBadgesOfEmployee(EmployeeDetails employeeDetails);
+
 }

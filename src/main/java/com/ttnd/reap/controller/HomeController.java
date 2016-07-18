@@ -30,30 +30,30 @@ public class HomeController {
 	private IBadgeTransactionService badgeTransactionService;
 
 	@RequestMapping(value = { "/" }, method = RequestMethod.GET)
-	public ModelAndView home1(HttpSession httpSession) {
+	public ModelAndView root(HttpSession httpSession) {
 		EmployeeDetails employeeDetails = (EmployeeDetails) httpSession.getAttribute("employeeDetails");
 		ModelAndView modelAndView = new ModelAndView();
 		if (employeeDetails == null) {
 			modelAndView.setViewName("login");
 			return modelAndView;
 		}
-		modelAndView.setViewName("redirect:home");
+		modelAndView.setViewName("redirect:/home");
 		return modelAndView;
 	}
 
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
-	public ModelAndView home2(HttpSession httpSession) {
+	public ModelAndView home(HttpSession httpSession) {
 		EmployeeDetails employeeDetails = (EmployeeDetails) httpSession.getAttribute("employeeDetails");
 		ModelAndView modelAndView = new ModelAndView();
 		if (employeeDetails == null) {
-			modelAndView.setViewName("redirect:login");
+			modelAndView.setViewName("redirect:/login");
 			return modelAndView;
 		}
 		modelAndView.addObject("badgeTransaction", new BadgeTransaction());
 		modelAndView.addObject("receivedBadges", service.getReceivedBadgesOfEmployee(employeeDetails));
 		modelAndView.addObject("remainingBadges", service.getRemainingBadgesOfEmployee(employeeDetails));
+		modelAndView.addObject("wallOfFame", badgeTransactionService.wallOfFame());
 		modelAndView.setViewName("home");
-		System.out.println("inside home");
 		return modelAndView;
 	}
 
@@ -65,7 +65,7 @@ public class HomeController {
 			modelAndView.setViewName("login");
 			return modelAndView;
 		}
-		modelAndView.setViewName("redirect:home");
+		modelAndView.setViewName("redirect:/home");
 		return modelAndView;
 	}
 
@@ -79,7 +79,7 @@ public class HomeController {
 			modelAndView.addObject("badgeTransaction", new BadgeTransaction());
 			modelAndView.addObject("receivedBadges", service.getReceivedBadgesOfEmployee(employeeDetails));
 			modelAndView.addObject("remainingBadges", service.getRemainingBadgesOfEmployee(employeeDetails));
-			modelAndView.setViewName("redirect:home");
+			modelAndView.setViewName("redirect:/home");
 			return modelAndView;
 		}
 		try {
@@ -97,7 +97,7 @@ public class HomeController {
 		modelAndView.addObject("badgeTransaction", new BadgeTransaction());
 		modelAndView.addObject("receivedBadges", service.getReceivedBadgesOfEmployee(employeeDetails));
 		modelAndView.addObject("remainingBadges", service.getRemainingBadgesOfEmployee(employeeDetails));
-		modelAndView.setViewName("redirect:home");
+		modelAndView.setViewName("redirect:/home");
 		return modelAndView;
 	}
 
@@ -113,7 +113,7 @@ public class HomeController {
 		modelAndView.addObject("badgeTransaction", new BadgeTransaction());
 		modelAndView.addObject("receivedBadges", service.getReceivedBadgesOfEmployee(employeeDetails));
 		modelAndView.addObject("remainingBadges", service.getRemainingBadgesOfEmployee(employeeDetails));
-		modelAndView.setViewName("redirect:home");
+		modelAndView.setViewName("redirect:/home");
 		return modelAndView;
 	}
 
@@ -122,10 +122,11 @@ public class HomeController {
 		ModelAndView modelAndView = new ModelAndView();
 		EmployeeDetails employeeDetailsSession = (EmployeeDetails) httpSession.getAttribute("employeeDetails");
 		if (employeeDetailsSession != null) {
+			httpSession.setAttribute("employeeDetails", employeeDetails);
 			modelAndView.addObject("badgeTransaction", new BadgeTransaction());
 			modelAndView.addObject("receivedBadges", service.getReceivedBadgesOfEmployee(employeeDetails));
 			modelAndView.addObject("remainingBadges", service.getRemainingBadgesOfEmployee(employeeDetails));
-			modelAndView.setViewName("redirect:home");
+			modelAndView.setViewName("redirect:/home");
 			return modelAndView;
 		}
 
@@ -136,7 +137,7 @@ public class HomeController {
 			modelAndView.addObject("badgeTransaction", new BadgeTransaction());
 			modelAndView.addObject("receivedBadges", service.getReceivedBadgesOfEmployee(employeeDetails));
 			modelAndView.addObject("remainingBadges", service.getRemainingBadgesOfEmployee(employeeDetails));
-			modelAndView.setViewName("redirect:home");
+			modelAndView.setViewName("redirect:/home");
 			return modelAndView;
 		} else {
 			if (success == -1)
@@ -153,7 +154,7 @@ public class HomeController {
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout(HttpSession httpSession) {
 		httpSession.invalidate();
-		return "redirect:login";
+		return "redirect:/login";
 	}
 
 	@RequestMapping(value = "/badges", method = RequestMethod.GET)
@@ -161,8 +162,8 @@ public class HomeController {
 		EmployeeDetails employeeDetails = (EmployeeDetails) httpSession.getAttribute("employeeDetails");
 		ModelAndView modelAndView = new ModelAndView();
 		if (employeeDetails == null) {
+			modelAndView.setViewName("login");
 			modelAndView.addObject("msg", "Please login first!!!!");
-			modelAndView.setViewName("redirect:login");
 			return modelAndView;
 		}
 		modelAndView.setViewName("myBadges");
@@ -177,13 +178,13 @@ public class HomeController {
 		ModelAndView modelAndView = new ModelAndView();
 		if (employeeDetails == null) {
 			modelAndView.addObject("msg", "Please login first!!!");
-			modelAndView.setViewName("redirect:login");
+			modelAndView.setViewName("redirect:/login");
 			return modelAndView;
 		}
 		modelAndView.addObject("badgeTransaction", new BadgeTransaction());
 		modelAndView.addObject("receivedBadges", service.getReceivedBadgesOfEmployee(employeeDetails));
 		modelAndView.addObject("remainingBadges", service.getRemainingBadgesOfEmployee(employeeDetails));
-		modelAndView.setViewName("redirect:home");
+		modelAndView.setViewName("redirect:/home");
 		return modelAndView;
 	}
 
@@ -193,19 +194,19 @@ public class HomeController {
 		ModelAndView modelAndView = new ModelAndView();
 		if (employeeDetails == null) {
 			modelAndView.addObject("msg", "Please login first!!!");
-			modelAndView.setViewName("redirect:login");
+			modelAndView.setViewName("redirect:/login");
 		}
 		badgeTransaction.setSenderId(employeeDetails.getId());
 		badgeTransaction.setDate(new Date());
 
 		int success = badgeTransactionService.recognizeKarma(badgeTransaction);
-		System.out.println("inside /karma post" + success);
+
 		ReceivedBadges receivedBadges = service.getReceivedBadgesOfEmployee(employeeDetails);
 		modelAndView.addObject("receivedBadges", receivedBadges);
 		RemainingBadges remainingBadges = service.getRemainingBadgesOfEmployee(employeeDetails);
 		modelAndView.addObject("remainingBadges", remainingBadges);
 		modelAndView.addObject("successMessage", success);
-		modelAndView.setViewName("redirect:home");
+		modelAndView.setViewName("redirect:/home");
 		return modelAndView;
 	}
 }
