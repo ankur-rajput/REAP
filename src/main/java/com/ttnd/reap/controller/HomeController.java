@@ -53,6 +53,7 @@ public class HomeController {
 		modelAndView.addObject("receivedBadges", service.getReceivedBadgesOfEmployee(employeeDetails));
 		modelAndView.addObject("remainingBadges", service.getRemainingBadgesOfEmployee(employeeDetails));
 		modelAndView.addObject("badgeTransactionList", badgeTransactionService.wallOfFame());
+		modelAndView.addObject("receivedBadgesList", service.getReceivedBadgesList());
 		modelAndView.setViewName("home");
 		return modelAndView;
 	}

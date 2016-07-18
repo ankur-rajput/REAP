@@ -1,9 +1,12 @@
 package com.ttnd.reap.dao.Impl;
 
+import java.util.List;
+
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -125,6 +128,24 @@ public class ReceivedBadgesDaoImpl implements IReceivedBadgesDao {
 			session.close();
 			return false;
 		}
+	}
+
+	@Override
+	public List<ReceivedBadges> getReceivedBadgesList() {
+		List<ReceivedBadges> receivedBadgesList = null;
+		Session session = sessionFactory.openSession();
+		Transaction transaction = session.beginTransaction();
+
+		try {
+			Criteria criteria = session.createCriteria(ReceivedBadges.class).addOrder(Order.desc("points"));
+			receivedBadgesList = (List<ReceivedBadges>) criteria.setMaxResults(5).list();
+		} catch (Exception e) {
+			transaction.rollback();
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return receivedBadgesList;
 	}
 
 }

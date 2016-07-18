@@ -1,5 +1,7 @@
 package com.ttnd.reap.dao;
 
+import java.util.List;
+
 import com.ttnd.reap.pojo.EmployeeDetails;
 import com.ttnd.reap.pojo.ReceivedBadges;
 
@@ -13,4 +15,6 @@ public interface IReceivedBadgesDao {
 	public boolean updateSilver(int employeeId);
 
 	public boolean updateBronze(int employeeId);
+
+	public List<ReceivedBadges> getReceivedBadgesList();
 }

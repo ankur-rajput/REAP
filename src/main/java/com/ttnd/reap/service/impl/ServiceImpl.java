@@ -1,5 +1,7 @@
 package com.ttnd.reap.service.impl;
 
+import java.util.List;
+
 import org.jasypt.util.password.BasicPasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -59,6 +61,11 @@ public class ServiceImpl implements IService {
 	@Override
 	public RemainingBadges getRemainingBadgesOfEmployee(EmployeeDetails employeeDetails) {
 		return remainingBadgesDao.getRemainingBadgesOfEmployee(employeeDetails);
+	}
+
+	@Override
+	public List<ReceivedBadges> getReceivedBadgesList() {
+		return receivedBadgesDao.getReceivedBadgesList();
 	}
 
 }

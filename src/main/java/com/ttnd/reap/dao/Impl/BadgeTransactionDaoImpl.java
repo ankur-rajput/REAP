@@ -60,7 +60,7 @@ public class BadgeTransactionDaoImpl implements IBadgeTransactionDao {
 			badgeTransaction.setSender(sender);
 
 			criteria = session.createCriteria(EmployeeDetails.class)
-					.add(Restrictions.eq("id", badgeTransaction.getSenderId()));
+					.add(Restrictions.eq("id", badgeTransaction.getReceiverId()));
 			EmployeeDetails receiver = (EmployeeDetails) criteria.uniqueResult();
 			badgeTransaction.setReceiver(receiver);
 
