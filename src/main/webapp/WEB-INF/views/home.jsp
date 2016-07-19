@@ -19,13 +19,62 @@
 <script src="<c:url value="/resources/js/bootstrap.min.js" />"></script>
 <link rel="stylesheet" type="text/css"
 	href="<c:url value="/resources/css/reap.css" />">
+<script>
+	$(document)
+			.ready(
+					function() {
+						$(function() {
+							$("#selectnewer")
+									.autocomplete(
+											{
+												source : function(request,
+														response) {
+													$
+															.ajax({
+																url : "${pageContext.request.contextPath}/getEmployees",
+																type : "GET",
 
+																data : {
+																	term : request.term
+																},
+
+																dataType : "json",
+
+																success : function(
+																		data) {
+																	response($
+																			.map(
+																					data,
+																					function(
+																							v,
+																							i) {
+
+																						return {
+																							label : v.id
+																									+ ":"
+																									+ "     		   "
+																									+ v.name,
+																							value : v.id
+																									+ ":"
+																									+ "      		   "
+																									+ v.name
+
+																						};
+																					}));
+																}
+															});
+												}
+											});
+						});
+					});
+</script>
 </head>
 <body>
 	<nav class="navbar navbar-static-top myNavbarClass" style="margin: 0;"
 		role="navigation">
 	<div class="navbar-header" style="float: left; width: 50%">
-		<a href="home" class="logo"><img src="resources/images/reap-logo.png"
+		<a href="home" class="logo"><img
+			src="resources/images/reap-logo.png"
 			style="margin-top: 10px; width: 107px; height: 32px";></a> <img
 			class="reapfull hidden-xs" src="resources/images/reap.png">
 	</div>
@@ -149,8 +198,8 @@
 							<div class="row">
 								<div class="col-md-12">
 									<div class="col-md-6">
-										<form:input path="receiverId" type="text" class="form-control"
-											placeholder="Select a Newer"
+										<form:input path="receiverId" type="text" id="selectnewer"
+											class="form-control" placeholder="Select a Newer"
 											style="padding-left: 40px; border: 1px solid #e5e5e5;" />
 										<input type="hidden" name="user" id="user" /> <span
 											style="padding: 4px 12px; border-right: 1px solid #e5e5e5; position: absolute; top: 6px;">
@@ -223,10 +272,6 @@
 									<div class="col-md-7">
 										<input type="text" class="form-control" placeholder="Search"
 											value="">
-									</div>
-									<div class="col-md-1" id="datetimepicker">
-										<span class="glyphicon glyphicon-calendar"
-											style="font-size: 30px"></span>
 									</div>
 								</form>
 							</div>

@@ -1,5 +1,7 @@
 package com.ttnd.reap.dao.Impl;
 
+import java.util.List;
+
 import javax.persistence.PersistenceException;
 
 import org.hibernate.Criteria;
@@ -88,6 +90,25 @@ public class EmployeeDetailsDaoImpl implements IEmployeeDetailsDao {
 			}
 		}
 		return null;
+	}
+
+	@Override
+	public List<EmployeeDetails> searchNewer(String term) {
+		List<EmployeeDetails> employeeAjaxList = null;
+		Session session = sessionFactory.openSession();
+		Transaction transaction = session.beginTransaction();
+		try {
+			Criteria criteria = session.createCriteria(EmployeeDetails.class)
+					.add(Restrictions.like("name", "%" + term + "%"));
+			employeeAjaxList = criteria.list();
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return employeeAjaxList;
 	}
 
 }

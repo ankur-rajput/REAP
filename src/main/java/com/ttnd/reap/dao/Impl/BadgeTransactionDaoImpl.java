@@ -6,6 +6,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,6 +88,63 @@ public class BadgeTransactionDaoImpl implements IBadgeTransactionDao {
 		Transaction transaction = session.beginTransaction();
 		try {
 			Criteria criteria = session.createCriteria(BadgeTransaction.class).addOrder(Order.desc("date"));
+			badgeTransactions = criteria.list();
+		} catch (Exception e) {
+			transaction.rollback();
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return badgeTransactions;
+	}
+
+	@Override
+	public List<BadgeTransaction> allBadgeTransactionOfEmployee(int employeeId) {
+		List<BadgeTransaction> badgeTransactions = null;
+		Session session = sessionFactory.openSession();
+		Transaction transaction = session.beginTransaction();
+		try {
+			Criteria criteria = session.createCriteria(BadgeTransaction.class);
+			Disjunction disjunction = Restrictions.disjunction();
+			disjunction.add(Restrictions.eq("senderId", employeeId));
+			disjunction.add(Restrictions.eq("receiverId", employeeId));
+			criteria.add(disjunction);
+			badgeTransactions = criteria.list();
+		} catch (Exception e) {
+			transaction.rollback();
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return badgeTransactions;
+	}
+
+	@Override
+	public List<BadgeTransaction> sharedBadgeTransactionOfEmployee(int employeeId) {
+		List<BadgeTransaction> badgeTransactions = null;
+		Session session = sessionFactory.openSession();
+		Transaction transaction = session.beginTransaction();
+		try {
+			Criteria criteria = session.createCriteria(BadgeTransaction.class)
+					.add(Restrictions.eq("senderId", employeeId));
+			badgeTransactions = criteria.list();
+		} catch (Exception e) {
+			transaction.rollback();
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return badgeTransactions;
+	}
+
+	@Override
+	public List<BadgeTransaction> receivedBadgeTransactionOfEmployee(int employeeId) {
+		List<BadgeTransaction> badgeTransactions = null;
+		Session session = sessionFactory.openSession();
+		Transaction transaction = session.beginTransaction();
+		try {
+			Criteria criteria = session.createCriteria(BadgeTransaction.class)
+					.add(Restrictions.eq("receiverId", employeeId));
 			badgeTransactions = criteria.list();
 		} catch (Exception e) {
 			transaction.rollback();

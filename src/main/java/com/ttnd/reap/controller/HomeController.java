@@ -1,21 +1,23 @@
 package com.ttnd.reap.controller;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ttnd.reap.pojo.BadgeTransaction;
 import com.ttnd.reap.pojo.EmployeeDetails;
-import com.ttnd.reap.pojo.ReceivedBadges;
-import com.ttnd.reap.pojo.RemainingBadges;
 import com.ttnd.reap.service.IBadgeTransactionService;
 import com.ttnd.reap.service.IService;
 
@@ -143,20 +145,6 @@ public class HomeController {
 		return "redirect:/login";
 	}
 
-	@RequestMapping(value = "/badges", method = RequestMethod.GET)
-	public ModelAndView badges(HttpSession httpSession) {
-		EmployeeDetails employeeDetails = (EmployeeDetails) httpSession.getAttribute("employeeDetails");
-		ModelAndView modelAndView = new ModelAndView();
-		if (employeeDetails == null) {
-			modelAndView.addObject("msg", "Please login first!!!!");
-			modelAndView.setViewName("redirect:login");
-			return modelAndView;
-		}
-		modelAndView.addObject("receivedBadges", service.getReceivedBadgesOfEmployee(employeeDetails));
-		modelAndView.setViewName("myBadges");
-		return modelAndView;
-	}
-
 	@RequestMapping(value = { "/karma" }, method = RequestMethod.GET)
 	public ModelAndView karma(HttpSession httpSession) {
 		EmployeeDetails employeeDetails = (EmployeeDetails) httpSession.getAttribute("employeeDetails");
@@ -191,6 +179,76 @@ public class HomeController {
 		// modelAndView.addObject("remainingBadges", remainingBadges);
 		modelAndView.addObject("successMessage", success);
 		modelAndView.setViewName("redirect:/home");
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/getEmployees", method = RequestMethod.GET, produces = "application/json")
+	public @ResponseBody List<EmployeeDetails> getEmployees(@RequestParam String term,
+			HttpServletResponse response,HttpSession session) {
+		return service.searchNewer(term);
+	}
+
+	@RequestMapping(value = "/badges", method = RequestMethod.GET)
+	public ModelAndView badges(HttpSession httpSession) {
+		EmployeeDetails employeeDetails = (EmployeeDetails) httpSession.getAttribute("employeeDetails");
+		ModelAndView modelAndView = new ModelAndView();
+		if (employeeDetails == null) {
+			modelAndView.addObject("msg", "Please login first!!!!");
+			modelAndView.setViewName("redirect:login");
+			return modelAndView;
+		}
+		modelAndView.addObject("employeeBadgeTransactions",
+				badgeTransactionService.allBadgeTransactionOfEmployee(employeeDetails));
+		modelAndView.addObject("receivedBadges", service.getReceivedBadgesOfEmployee(employeeDetails));
+		modelAndView.setViewName("myBadges");
+		return modelAndView;
+	}
+
+	@RequestMapping(value = "/shared", method = RequestMethod.GET)
+	public ModelAndView shared(HttpSession httpSession) {
+		EmployeeDetails employeeDetails = (EmployeeDetails) httpSession.getAttribute("employeeDetails");
+		ModelAndView modelAndView = new ModelAndView();
+		if (employeeDetails == null) {
+			modelAndView.addObject("msg", "Please login first!!!!");
+			modelAndView.setViewName("redirect:login");
+			return modelAndView;
+		}
+		modelAndView.addObject("employeeBadgeTransactions",
+				badgeTransactionService.sharedBadgeTransactionOfEmployee(employeeDetails));
+		modelAndView.addObject("receivedBadges", service.getReceivedBadgesOfEmployee(employeeDetails));
+		modelAndView.setViewName("myBadges");
+		return modelAndView;
+	}
+
+	@RequestMapping(value = "/received", method = RequestMethod.GET)
+	public ModelAndView received(HttpSession httpSession) {
+		EmployeeDetails employeeDetails = (EmployeeDetails) httpSession.getAttribute("employeeDetails");
+		ModelAndView modelAndView = new ModelAndView();
+		if (employeeDetails == null) {
+			modelAndView.addObject("msg", "Please login first!!!!");
+			modelAndView.setViewName("redirect:login");
+			return modelAndView;
+		}
+		modelAndView.addObject("employeeBadgeTransactions",
+				badgeTransactionService.receivedBadgeTransactionOfEmployee(employeeDetails));
+		modelAndView.addObject("receivedBadges", service.getReceivedBadgesOfEmployee(employeeDetails));
+		modelAndView.setViewName("myBadges");
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/badge/index/{employeeId}")
+	public ModelAndView badgesOfEmployeeId(@PathVariable String employeeId, HttpSession httpSession){
+		EmployeeDetails employeeDetails = (EmployeeDetails) httpSession.getAttribute("employeeDetails");
+		ModelAndView modelAndView = new ModelAndView();
+		if (employeeDetails == null) {
+			modelAndView.addObject("msg", "Please login first!!!!");
+			modelAndView.setViewName("redirect:login");
+			return modelAndView;
+		}
+		modelAndView.addObject("employeeBadgeTransactions",
+				badgeTransactionService.allBadgeTransactionOfEmployee(Integer.parseInt(employeeId)));
+		modelAndView.addObject("receivedBadges", service.getReceivedBadgesOfEmployee(employeeDetails));
+		modelAndView.setViewName("myBadges");
 		return modelAndView;
 	}
 }

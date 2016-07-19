@@ -2,6 +2,7 @@ package com.ttnd.reap.pojo;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -9,8 +10,8 @@ import javax.persistence.OneToOne;
 @Entity
 public class RemainingBadges {
 	@Id
-	@GeneratedValue
-	private int Id;
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private int id;
 	private int gold = 3, silver = 2, bronze = 1;
 	@OneToOne
 	@JoinColumn(name = "employeeId")
@@ -25,11 +26,11 @@ public class RemainingBadges {
 	}
 
 	public int getId() {
-		return Id;
+		return id;
 	}
 
 	public void setId(int id) {
-		Id = id;
+		this.id = id;
 	}
 
 	public int getGold() {

@@ -41,13 +41,13 @@
 		<div class="myMenu">
 			<ul id="myNavbarButtons" class="nav navbar-nav" style="float: right">
 				<li><a href='<c:url value="/" />' class="navbtn" id="dashboard"><img
-						id="test" src="resources/images/ico-dashboard.png">
+						id="test" src="/REAP/resources/images/ico-dashboard.png">
 						Dashboard</a></li>
 				<li><a href='<c:url value="badges" />' class="navbtn"
-					id="badge"><img src="resources/images/ico-badge.png">
+					id="badge"><img src="/REAP/resources/images/ico-badge.png">
 						Badges</a></li>
 				<li style="float: right padding-top:2px;"><a href="#"><img
-						src="resources/images/sanam.jpg"
+						src="/REAP/resources/images/sanam.jpg"
 						style="margin-top: 2px; width: 40px; height: 50px"
 						; data-toggle="modal" data-target="#myModal"></a></li>
 			</ul>
@@ -68,7 +68,7 @@
 									<div class="col-md-12 col-sm-12 col-lg-12">
 										<div class="head-bar">
 											<img style="float: left; height: 150px; width: 130px"
-												src="resources/images/sanam.jpg">
+												src="/REAP/resources/images/sanam.jpg">
 										</div>
 									</div>
 								</div>
@@ -237,18 +237,14 @@
 									<div class="collapse navbar-collapse" id="myTab">
 										<div class="nav-outer ">
 											<ul class="nav nav-tabs trending " role="tablist">
-												<li role="presentation" class="active"><a href="#"
-													role="tab"> <b>ALL(0)</b>
+												<li role="presentation" class=""><a href="badges"
+													role="tab"> <b>ALL</b>
 												</a></li>
 												<li role="presentation" class=""><a href="shared"
-													role="tab"> <b> BADGES SHARED(0)</b>
+													role="tab"> <b> BADGES SHARED</b>
 												</a></li>
 												<li role="presentation" class=""><a href="received"
-													role="tab"> <b> BADGES RECIEVED(0)</b>
-												</a></li>
-
-												<li role="presentation" class=""><a href="badgeHistory"
-													role="tab"> <b> BADGES HISTORY</b>
+													role="tab"> <b> BADGES RECIEVED</b>
 												</a></li>
 											</ul>
 
@@ -260,8 +256,36 @@
 					</div>
 					<div class="panel-group">
 						<div class="panel panel-default">
+							<div class="panel-body">
+								<div class="content">
 
-							<div class="panel-body">No data found</div>
+									<c:forEach var="badgeTransaction"
+										items="${employeeBadgeTransactions}">
+										<div class="row">
+											<div class="col-md-2" style="padding-top: 10px">
+												<center>
+													<img src="/REAP/resources/images/my-photo" alt="image"
+														class="img-rounded" width="50px" height="50px">
+												</center>
+											</div>
+											<div class="col-md-10" style="padding-top: 10px">
+												<strong><a
+													href="badge/index/${badgeTransaction.receiver.id}">${badgeTransaction.receiver.name}</a></strong>
+												has received <img src="/REAP/resources/images/silver.png"
+													title="Silver" alt="Silver"> from <strong><a
+													href="badge/index/${badgeTransaction.sender.id}">${badgeTransaction.sender.name}</a></strong>
+												for Karma : ${badgeTransaction.karma}
+												<div>
+													Reason : ${badgeTransaction.reason} <br> <i
+														class="momentDate"> ${badgeTransaction.date} </i>
+												</div>
+											</div>
+										</div>
+										<hr>
+									</c:forEach>
+
+								</div>
+							</div>
 						</div>
 
 					</div>

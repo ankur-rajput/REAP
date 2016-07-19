@@ -19,4 +19,5 @@ public interface IService {
 
 	public List<ReceivedBadges> getReceivedBadgesList();
 
+	public List<EmployeeDetails> searchNewer(String term);
 }

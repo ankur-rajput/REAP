@@ -68,4 +68,9 @@ public class ServiceImpl implements IService {
 		return receivedBadgesDao.getReceivedBadgesList();
 	}
 
+	@Override
+	public List<EmployeeDetails> searchNewer(String term) {
+		return employeeDetailsDao.searchNewer(term);
+	}
+
 }
