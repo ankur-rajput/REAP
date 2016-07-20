@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ttnd.reap.pojo.BadgeTransaction;
 import com.ttnd.reap.pojo.EmployeeDetails;
 import com.ttnd.reap.service.IBadgeTransactionService;
+import com.ttnd.reap.service.IEmailService;
 import com.ttnd.reap.service.IService;
 
 @Controller
@@ -30,6 +31,9 @@ public class HomeController {
 
 	@Autowired
 	private IBadgeTransactionService badgeTransactionService;
+
+	@Autowired
+	private IEmailService emailService;
 
 	@RequestMapping(value = { "/" }, method = RequestMethod.GET)
 	public ModelAndView root(HttpSession httpSession) {
@@ -170,6 +174,9 @@ public class HomeController {
 		badgeTransaction.setDate(new Date());
 
 		int success = badgeTransactionService.recognizeKarma(badgeTransaction);
+		if (success == 1) {
+			emailService.sendMail(service.employeeList());
+		}
 
 		// ReceivedBadges receivedBadges =
 		// service.getReceivedBadgesOfEmployee(employeeDetails);
@@ -181,10 +188,10 @@ public class HomeController {
 		modelAndView.setViewName("redirect:/home");
 		return modelAndView;
 	}
-	
+
 	@RequestMapping(value = "/getEmployees", method = RequestMethod.GET, produces = "application/json")
-	public @ResponseBody List<EmployeeDetails> getEmployees(@RequestParam String term,
-			HttpServletResponse response,HttpSession session) {
+	public @ResponseBody List<EmployeeDetails> getEmployees(@RequestParam String term, HttpServletResponse response,
+			HttpSession session) {
 		return service.searchNewer(term);
 	}
 
@@ -235,9 +242,9 @@ public class HomeController {
 		modelAndView.setViewName("myBadges");
 		return modelAndView;
 	}
-	
+
 	@RequestMapping(value = "/badge/index/{employeeId}")
-	public ModelAndView badgesOfEmployeeId(@PathVariable String employeeId, HttpSession httpSession){
+	public ModelAndView badgesOfEmployeeId(@PathVariable String employeeId, HttpSession httpSession) {
 		EmployeeDetails employeeDetails = (EmployeeDetails) httpSession.getAttribute("employeeDetails");
 		ModelAndView modelAndView = new ModelAndView();
 		if (employeeDetails == null) {

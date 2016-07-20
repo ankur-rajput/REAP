@@ -73,4 +73,9 @@ public class ServiceImpl implements IService {
 		return employeeDetailsDao.searchNewer(term);
 	}
 
+	@Override
+	public List<EmployeeDetails> employeeList() {
+		return employeeDetailsDao.employeeList();
+	}
+
 }

@@ -20,4 +20,6 @@ public interface IService {
 	public List<ReceivedBadges> getReceivedBadgesList();
 
 	public List<EmployeeDetails> searchNewer(String term);
+	
+	public List<EmployeeDetails> employeeList();
 }

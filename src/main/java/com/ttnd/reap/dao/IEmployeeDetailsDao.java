@@ -12,4 +12,6 @@ public interface IEmployeeDetailsDao {
 	public EmployeeDetails findEmployeeByEmail(String email, String password);
 
 	public List<EmployeeDetails> searchNewer(String term);
+
+	public List<EmployeeDetails> employeeList();
 }

@@ -111,4 +111,22 @@ public class EmployeeDetailsDaoImpl implements IEmployeeDetailsDao {
 		return employeeAjaxList;
 	}
 
+	@Override
+	public List<EmployeeDetails> employeeList() {
+		List<EmployeeDetails> employeeList = null;
+		Session session = sessionFactory.openSession();
+		Transaction transaction = session.beginTransaction();
+		try {
+			Criteria criteria = session.createCriteria(EmployeeDetails.class);
+			employeeList = criteria.list();
+			transaction.commit();
+		} catch (Exception e) {
+			transaction.rollback();
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return employeeList;
+	}
+
 }
